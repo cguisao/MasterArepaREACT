@@ -1,16 +1,13 @@
 import React from 'react';
-import { Row, Col, Button } from 'reactstrap';
-import "react-bootstrap-carousel/dist/react-bootstrap-carousel.css";
+import { Row } from 'reactstrap';
 
-const styles = { height: 400, width: "50%" };
-
-class FoodTruckSection extends React.Component {
+class TacoSection extends React.Component {
 
     render() {
         return (
             <React.Fragment>
 
-                <section className="home-7-bg bg-foodTruck">
+                <section className="home-7-bg bg-taco">
                     <div className="home-center">
                         <div className="home-desc-center">                                    
                             <div className="container">
@@ -27,4 +24,4 @@ class FoodTruckSection extends React.Component {
         );
     }
 }
-export default FoodTruckSection;
+export default TacoSection;

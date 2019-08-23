@@ -4,14 +4,11 @@ import Navbar from './components/Navbar';
 import Home7 from './components/Home7';
 import AboutSection from './components/AboutSection';
 import MenuSection from './components/MenuSection';
-import ServiceSection from './components/ServiceSection';
-import FeatureSection from './components/FeatureSection';
 import FoodTruckSection from './components/ClientSection';
-import PricingSection from './components/PricingSection';
-import BlogSection from './components/BlogSection';
 import ContactSection from './components/ContactSection';
 import Footer from './components/Footer';
 import FooterAlt from './components/FooterAlt';
+import TacoSection from './components/TacoSection';
 
 
 class Index7 extends React.Component {
@@ -38,20 +35,14 @@ class Index7 extends React.Component {
         {/* AboutSection Menu */}
         <AboutSection />
 
+        {/* TacoSection Menu */}
+        <TacoSection />
+
         {/* MenuSection Menu */}
         <MenuSection />
 
-        {/* ServiceSection Menu  <ServiceSection />*/}
-        
-        {/* FeatureSection Menu <FeatureSection />*/}
-        
-        {/* PricingSection Menu <PricingSection /> */}
-
         {/* ClientSection Menu */}
         <FoodTruckSection />
-
-        {/* BlogSection Menu <BlogSection />*/}
-        
 
         {/* ContactSection Menu */}
         <ContactSection />

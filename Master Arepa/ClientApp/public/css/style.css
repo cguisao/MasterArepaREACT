@@ -1050,8 +1050,22 @@ p {
   transition: all 0.5s;
 }
 
-.bg-clients {
+.bg-foodTruck {
   background-image: url("../images/foodTruck.jpg");
+  background-size: cover;
+  position: relative;
+  background-attachment: fixed;
+}
+
+.bg-taco {
+  background-image: url("../images/taco.jpg");
+  background-size: cover;
+  position: relative;
+  background-attachment: fixed;
+}
+
+.bg-master {
+  background-image: url("../images/master.jpg");
   background-size: cover;
   position: relative;
   background-attachment: fixed;
