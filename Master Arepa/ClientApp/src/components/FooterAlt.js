@@ -9,7 +9,7 @@ class FooterAlt extends React.Component {
                     <div className="container">
                         <div className="row">
                             <div className="col-lg-12 text-center">
-                                <p className="copyright text-white f-14 font-weight-light mb-0"> {new Date().getFullYear()} © 2019. Design By GTI Solutionx</p>
+                                <p className="copyright text-white f-14 font-weight-light mb-0"> {new Date().getFullYear()} © Design By GTI Solutionx</p>
                             </div>
                         </div>
                     </div>
