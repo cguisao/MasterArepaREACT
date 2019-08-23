@@ -68,7 +68,7 @@ class ContactSection extends React.Component {
                                                     </div>
                                                     <div className="app-contact-desc text-muted pt-1">
                                                         <p className="mb-0 info-title f-13">Call :</p>
-                                                        <p className="mb-0 f-13">012-345-6789</p>
+                                                        <p className="mb-0 f-13">1 (754) 232-7860</p>
                                                     </div>
                                                 </div>
 
@@ -78,28 +78,23 @@ class ContactSection extends React.Component {
                                                     </div>
                                                     <div className="app-contact-desc text-muted pt-1">
                                                         <p className="mb-0 info-title f-13">Email :</p>
-                                                        <p className="mb-0 f-13"><Link to="" className="text-muted">youremailid@gmail.com</Link></p>
-                                                    </div>
-                                                </div>
-
-                                                <div className="contact-details mt-2">
-                                                    <div className="float-left contact-icon mr-3 mt-2">
-                                                        <i className="mdi mdi-map-marker text-muted h5"></i>
-                                                    </div>
-                                                    <div className="app-contact-desc text-muted pt-1">
-                                                        <p className="mb-0 info-title f-13">Location :</p>
-                                                        <p className="mb-0 f-13"><Link to="" className="text-muted">3179 Raccoon Run Seattle, WA 98109</Link></p>
+                                                        <p className="mb-0 f-13"><Link to="" className="text-muted">info@masterarepa.com</Link></p>
                                                     </div>
                                                 </div>
 
                                                 <div className="follow mt-4">
-                                                    <h4 className="text-dark mb-3">Follow</h4>
+                                                    <h4 className="text-dark mb-3">Follow Us</h4>
                                                     <ul className="follow-icon list-inline mt-32 mb-0">
-                                                        <li className="list-inline-item f-15"><Link to="#" className="social-icon text-muted"><i className="mdi mdi-facebook"></i></Link></li>&nbsp;
-                                                        <li className="list-inline-item f-15"><Link to="#" className="social-icon text-muted"><i className="mdi mdi-twitter"></i></Link></li>&nbsp;
-                                                        <li className="list-inline-item f-15"><Link to="#" className="social-icon text-muted"><i className="mdi mdi-google-plus"></i></Link></li>&nbsp;
-                                                        <li className="list-inline-item f-15"><Link to="#" className="social-icon text-muted"><i className="mdi mdi-linkedin"></i></Link></li>&nbsp;
-                                                        <li className="list-inline-item f-15"><Link to="#" className="social-icon text-muted"><i className="mdi mdi-whatsapp"></i></Link></li>&nbsp;
+                                                    <li className="list-inline-item f-15">
+                                                            <a href="https://www.instagram.com/masterarepa/" className="social-icon text-muted">
+                                                                <i className="mdi mdi-instagram"></i>
+                                                            </a>
+                                                        </li>&nbsp;
+                                                        <li className="list-inline-item f-15">
+                                                            <a href="https://www.facebook.com/masterarepa/" className="social-icon text-muted">
+                                                                <i className="mdi mdi-facebook"></i>
+                                                            </a>
+                                                        </li>&nbsp;
                                                     </ul>
                                                 </div>
                                             </div>

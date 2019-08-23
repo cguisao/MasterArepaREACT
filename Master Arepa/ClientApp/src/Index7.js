@@ -47,9 +47,6 @@ class Index7 extends React.Component {
         {/* ContactSection Menu */}
         <ContactSection />
 
-        {/* Footer Menu */}
-        <Footer />
-
         {/* FooterAlt Menu */}
         <FooterAlt />
 

@@ -13,7 +13,7 @@ class Footer extends React.Component {
                             <Col lg="4">
                                 <div className="mb-5">
                                     <p className="text-uppercase text-dark footer-title mb-4">About Us</p>
-                                    <p className="text-muted f-14">Sed ut perspiciatis unde omnis iste natus error sit voluptatem that is doloremque totam that laudantiume.</p>
+                                    <p className="text-muted f-14">100% Corn Arepas and Tortillas Always.</p>
                                 </div>
                             </Col>
 
