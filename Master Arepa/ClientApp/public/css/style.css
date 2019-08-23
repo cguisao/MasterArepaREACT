@@ -1517,3 +1517,92 @@ p {
 {
   z-index: 1!important;
 }
+
+.price-list {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.price-list__item {
+  margin-top: 5px;
+  margin-bottom: 5px;
+  position: relative;
+}
+
+.price-item {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  margin-bottom: 10px;
+}
+
+.price-item__heading {
+  -webkit-box-flex: 0;
+  -webkit-flex: 0 1 auto;
+  -ms-flex: 0 1 auto;
+  flex: 0 1 auto;
+  font-family: "Montserrat", sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  margin: 0;
+}
+
+.price-item__separator {
+  background-image: -webkit-radial-gradient(circle closest-side, rgba(0, 0, 0, 0.2) 99%, transparent 1%);
+  background-image: radial-gradient(circle closest-side, rgba(0, 0, 0, 0.2) 99%, transparent 1%);
+  background-position: bottom;
+  background-size: 5px 3px;
+  background-repeat: repeat-x;
+  -webkit-box-flex: 1;
+  -webkit-flex: 1 1 auto;
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
+  margin-left: 3px;
+  margin-right: 5px;
+  margin-bottom: calc((28px - 10px)/2);
+}
+
+.price-item__price {
+  -webkit-box-flex: 0;
+  -webkit-flex: 0 1 auto;
+  -ms-flex: 0 1 auto;
+  flex: 0 1 auto;
+  font-family: "Montserrat", sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  color: #cca300;
+  text-align: right;
+  margin: 0;
+  line-height: 30px;
+}
+
+.txt-center {
+  text-align: center;
+}
+.title-block {
+  margin-bottom: 25px;
+}
+
+.title-block__title {
+  font-family: "Amatic SC", cursive;
+  font-size: 66px;
+  line-height: 68px;
+  font-weight: 700;
+  letter-spacing: 20px;
+  margin-bottom: 20px;
+}
+
+.title-block__title--specialty {
+  font-weight: 400;
+  /* <= 768px */
+}
+
+.title-block__subtitle--menu {
+  font-family: "Montserrat", sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  color: #ccc;
+  text-transform: uppercase;
+}

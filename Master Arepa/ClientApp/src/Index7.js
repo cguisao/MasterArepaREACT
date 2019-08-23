@@ -3,6 +3,7 @@ import Preloader from './components/Preloader';
 import Navbar from './components/Navbar';
 import Home7 from './components/Home7';
 import AboutSection from './components/AboutSection';
+import MenuSection from './components/MenuSection';
 import ServiceSection from './components/ServiceSection';
 import FeatureSection from './components/FeatureSection';
 import FoodTruckSection from './components/ClientSection';
@@ -36,6 +37,9 @@ class Index7 extends React.Component {
 
         {/* AboutSection Menu */}
         <AboutSection />
+
+        {/* MenuSection Menu */}
+        <MenuSection />
 
         {/* ServiceSection Menu  <ServiceSection />*/}
         

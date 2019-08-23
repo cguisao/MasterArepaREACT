@@ -31,7 +31,7 @@ class Navbar extends React.Component {
 
                         <div className="collapse navbar-collapse" id="navbarCollapse">
                             <ScrollspyNav
-                                scrollTargetIds={["home", "about", "contact"]}
+                                scrollTargetIds={["home", "about", "menu", "contact"]}
                                 activeNavClass="active"
                                 scrollDuration="800"
                                 headerBackground="true"
@@ -39,6 +39,7 @@ class Navbar extends React.Component {
                                 <ul className="navbar-nav ml-auto navbar-center" id="mySidenav">
                                     <li className="nav-item active"><a href="#home" className="nav-link">Home</a></li>
                                     <li className="nav-item"><a href="#about" className="nav-link">About</a></li>
+                                    <li className="nav-item"><a href="#menu" className="nav-link">Menu</a></li>
                                     <li className="nav-item"><a href="#contact" className="nav-link">Contact us</a> </li>
                                 </ul>
                             </ScrollspyNav>
