@@ -4,6 +4,27 @@ import { Row, Col } from 'reactstrap';
 import { Link } from 'react-router-dom';
 
 class ContactSection extends React.Component {
+    constructor(props){
+        super(props);
+        this.state={'name': ''}
+
+        this.handleChange = this.handleChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+    }
+    handleChange(e){
+        this.setState({name: e.target.value});
+        //console.log(this.state.name);
+    }
+    handleSubmit(e){
+        e.preventDefault();
+        var data = new FormData(e.target);
+        console.log(e);
+
+        fetch('/api/SampleData/Post', {
+        method: 'POST',
+        body: JSON.stringify(data),
+        });
+    }
     render() {
 
         return (
@@ -18,7 +39,6 @@ class ContactSection extends React.Component {
                                 </div>
                             </Col>
                         </div>
-
                         <Row>
                             <Col lg="12">
                                 <div className="contact-box p-5">
@@ -26,37 +46,38 @@ class ContactSection extends React.Component {
                                         <Col lg="8" md="6">
                                             <div className="custom-form p-3">
                                                 <div id="message"></div>
-                                                <AvForm id="contact-form">
+                                                <form id="contact-form" onSubmit={this.handleSubmit}>
                                                     <Row>
                                                         <Col lg="6">
                                                             <div className="form-group app-label">
-                                                                <AvField name="name" type="text" validate={{ required: { value: true } }}  placeholder="Name" />
+                                                                <input type="text" value={this.state.name} onChange={this.handleChange}/>
                                                             </div>
                                                         </Col>
                                                         <Col lg="6">
                                                             <div className="form-group app-label">
-                                                                <AvField name="email" type="text" errorMessage="Invalid Email" validate={{ required: { value: true }, email: { value: true } }} placeholder="Email" />
+                                                               
                                                             </div>
                                                         </Col>
                                                         <Col lg="12">
                                                             <div className="form-group app-label">
-                                                                <AvField name="subject" type="text" validate={{ required: { value: true } }} placeholder="Subject" />
+                                                                
                                                             </div>
                                                         </Col>
                                                         <Col lg="12">
                                                             <div className="form-group app-label">
-                                                                <AvField name="comments" type="textarea" validate={{ required: { value: true } }} rows="5"  placeholder="Message" />
+                                                                
                                                             </div>
                                                         </Col>
                                                         <Row>
                                                             <Col sm="12">
-                                                              &nbsp; &nbsp;  <input type="submit" className="submitBnt btn btn-custom" value="Send Message" />
+                                                              &nbsp; &nbsp;  
+                                                              <input type="submit" className="submitBnt btn btn-custom" value="Send Message" />
                                                                 <div id="simple-msg"></div>
                                                             </Col>
                                                         </Row>
 
                                                     </Row>
-                                                </AvForm>
+                                                </form>
                                             </div>
                                         </Col>
 
