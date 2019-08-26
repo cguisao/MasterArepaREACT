@@ -3,3 +3,6 @@
 .vs/Master Arepa/v15/Server/sqlite3/storage.ide
 .vs/Master Arepa/v15/Server/sqlite3/db.lock
 Master Arepa/ClientApp/node_modules/
+Master Arepa/package-lock.json
+.vscode/tasks.json
+.vscode/launch.json
