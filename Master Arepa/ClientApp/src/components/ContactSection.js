@@ -1,29 +1,25 @@
 import React from 'react';
-import { AvForm, AvField } from 'availity-reactstrap-validation';
-import { Row, Col } from 'reactstrap';
+import { Row, Col, Form, Input, Label, Button } from 'reactstrap';
 import { Link } from 'react-router-dom';
 
-class ContactSection extends React.Component {
-    constructor(props){
-        super(props);
-        this.state={'name': ''}
 
-        this.handleChange = this.handleChange.bind(this);
+class ContactSection extends React.Component {
+    constructor() {
+        super();
         this.handleSubmit = this.handleSubmit.bind(this);
     }
-    handleChange(e){
-        this.setState({name: e.target.value});
-        //console.log(this.state.name);
-    }
-    handleSubmit(e){
-        e.preventDefault();
-        var data = new FormData(e.target);
-        console.log(e);
 
-        fetch('/api/SampleData/Post', {
-        method: 'POST',
-        body: JSON.stringify(data),
-        });
+    handleSubmit(event) {
+        event.preventDefault();
+        const data = new FormData(event.target);
+        
+        fetch('api/Form/PageForm', {
+            method: 'POST', 
+            body: data,
+        }).then((result) => {
+            alert("Message has successfully been sent!");
+            window.location.reload();
+        }).catch(err => console.error(err))
     }
     render() {
 
@@ -46,38 +42,23 @@ class ContactSection extends React.Component {
                                         <Col lg="8" md="6">
                                             <div className="custom-form p-3">
                                                 <div id="message"></div>
-                                                <form id="contact-form" onSubmit={this.handleSubmit}>
-                                                    <Row>
-                                                        <Col lg="6">
-                                                            <div className="form-group app-label">
-                                                                <input type="text" value={this.state.name} onChange={this.handleChange}/>
-                                                            </div>
-                                                        </Col>
-                                                        <Col lg="6">
-                                                            <div className="form-group app-label">
-                                                               
-                                                            </div>
-                                                        </Col>
-                                                        <Col lg="12">
-                                                            <div className="form-group app-label">
-                                                                
-                                                            </div>
-                                                        </Col>
-                                                        <Col lg="12">
-                                                            <div className="form-group app-label">
-                                                                
-                                                            </div>
-                                                        </Col>
-                                                        <Row>
-                                                            <Col sm="12">
-                                                              &nbsp; &nbsp;  
-                                                              <input type="submit" className="submitBnt btn btn-custom" value="Send Message" />
-                                                                <div id="simple-msg"></div>
-                                                            </Col>
-                                                        </Row>
-
-                                                    </Row>
-                                                </form>
+                                                <Form onSubmit={this.handleSubmit}>
+                                                    <Col sx="3">
+                                                        <Label htmlFor="email">Email</Label>
+                                                        <Input type="email" name="email" id="email" placeholder="Your email" />
+                                                    </Col>
+                                                    <Col sx="3">
+                                                        <Label htmlFor="subject">Subject</Label>
+                                                        <Input type="text" name="subject" id="subject" placeholder="Your Subject" />
+                                                    </Col>
+                                                    <Col>
+                                                        <Label htmlFor="message">Message</Label>
+                                                        <Input type="textarea" name="message" id="message" style={{height: 200}} placeholder="Start Typing" />
+                                                    </Col>
+                                                    <Col>
+                                                        <Button color="primary">Submit</Button>
+                                                    </Col>
+                                                </Form>
                                             </div>
                                         </Col>
 
@@ -89,7 +70,7 @@ class ContactSection extends React.Component {
                                                     </div>
                                                     <div className="app-contact-desc text-muted pt-1">
                                                         <p className="mb-0 info-title f-13">Call :</p>
-                                                        <p className="mb-0 f-13">1 (754) 232-7860</p>
+                                                        <p className="mb-0 f-13">012-345-6789</p>
                                                     </div>
                                                 </div>
 
@@ -99,23 +80,28 @@ class ContactSection extends React.Component {
                                                     </div>
                                                     <div className="app-contact-desc text-muted pt-1">
                                                         <p className="mb-0 info-title f-13">Email :</p>
-                                                        <p className="mb-0 f-13"><Link to="" className="text-muted">info@masterarepa.com</Link></p>
+                                                        <p className="mb-0 f-13"><Link to="" className="text-muted">youremailid@gmail.com</Link></p>
+                                                    </div>
+                                                </div>
+
+                                                <div className="contact-details mt-2">
+                                                    <div className="float-left contact-icon mr-3 mt-2">
+                                                        <i className="mdi mdi-map-marker text-muted h5"></i>
+                                                    </div>
+                                                    <div className="app-contact-desc text-muted pt-1">
+                                                        <p className="mb-0 info-title f-13">Location :</p>
+                                                        <p className="mb-0 f-13"><Link to="" className="text-muted">3179 Raccoon Run Seattle, WA 98109</Link></p>
                                                     </div>
                                                 </div>
 
                                                 <div className="follow mt-4">
-                                                    <h4 className="text-dark mb-3">Follow Us</h4>
+                                                    <h4 className="text-dark mb-3">Follow</h4>
                                                     <ul className="follow-icon list-inline mt-32 mb-0">
-                                                    <li className="list-inline-item f-15">
-                                                            <a href="https://www.instagram.com/masterarepa/" className="social-icon text-muted">
-                                                                <i className="mdi mdi-instagram"></i>
-                                                            </a>
-                                                        </li>&nbsp;
-                                                        <li className="list-inline-item f-15">
-                                                            <a href="https://www.facebook.com/masterarepa/" className="social-icon text-muted">
-                                                                <i className="mdi mdi-facebook"></i>
-                                                            </a>
-                                                        </li>&nbsp;
+                                                        <li className="list-inline-item f-15"><Link to="#" className="social-icon text-muted"><i className="mdi mdi-facebook"></i></Link></li>&nbsp;
+                                                        <li className="list-inline-item f-15"><Link to="#" className="social-icon text-muted"><i className="mdi mdi-twitter"></i></Link></li>&nbsp;
+                                                        <li className="list-inline-item f-15"><Link to="#" className="social-icon text-muted"><i className="mdi mdi-google-plus"></i></Link></li>&nbsp;
+                                                        <li className="list-inline-item f-15"><Link to="#" className="social-icon text-muted"><i className="mdi mdi-linkedin"></i></Link></li>&nbsp;
+                                                        <li className="list-inline-item f-15"><Link to="#" className="social-icon text-muted"><i className="mdi mdi-whatsapp"></i></Link></li>&nbsp;
                                                     </ul>
                                                 </div>
                                             </div>

@@ -1,24 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Index7 from './Index7';
-import Index8 from './Index8';
-import * as serviceWorker from './serviceWorker';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
+import registerServiceWorker from './registerServiceWorker';
+const baseUrl = document.getElementsByTagName('base')[0].getAttribute('href');
+const rootElement = document.getElementById('root');
 
-class Root extends React.Component {
+ReactDOM.render(
+    <BrowserRouter basename={baseUrl}>
+        <Index7 />
+    </BrowserRouter>,
+    rootElement);
 
-    render() {
-        return(
-            <BrowserRouter basename={'/'} >
-                <Switch>
-                <Route exact path={`${process.env.PUBLIC_URL}/`} component={Index7}/>
-                <Route path={`${process.env.PUBLIC_URL}/index-7`} component={Index7}/>  
-                <Route path={`${process.env.PUBLIC_URL}/index-8`} component={Index8}/>   
-              </Switch>
-          </BrowserRouter>
-        );
-    }
-   }
-
-ReactDOM.render(<Root />, document.getElementById('root'));
-serviceWorker.unregister();
+registerServiceWorker();

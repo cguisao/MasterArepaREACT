@@ -1071,6 +1071,13 @@ p {
   background-attachment: fixed;
 }
 
+.bg-wings {
+  background-image: url("../images/wings.jpg");
+  background-size: cover;
+  position: relative;
+  background-attachment: fixed;
+}
+
 #owl-demo .item {
   margin: 15px;
 }

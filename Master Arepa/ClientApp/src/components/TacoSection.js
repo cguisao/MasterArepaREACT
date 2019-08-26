@@ -7,7 +7,7 @@ class TacoSection extends React.Component {
         return (
             <React.Fragment>
 
-                <section className="home-7-bg bg-taco">
+                <section className="home-7-bg bg-taco" id="taco">
                     <div className="home-center">
                         <div className="home-desc-center">                                    
                             <div className="container">

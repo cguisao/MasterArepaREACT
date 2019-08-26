@@ -77,7 +77,9 @@ class ScrollspyNav extends Component {
         window.addEventListener("scroll", () => {
             let scrollSectionOffsetTop;
             this.scrollTargetIds.map((sectionID, index) => {
-                scrollSectionOffsetTop = document.getElementById(sectionID).offsetTop - (this.headerBackground ? document.querySelector("div[data-nav='list']").scrollHeight : 0);
+                scrollSectionOffsetTop = 
+                    document.getElementById(sectionID).offsetTop - 
+                        (this.headerBackground ? document.querySelector("div[data-nav='list']").scrollHeight : 0);
 
                 if (window.pageYOffset >= scrollSectionOffsetTop && window.pageYOffset < scrollSectionOffsetTop + document.getElementById(sectionID).scrollHeight) {
                     this.getNavLinkElement(sectionID).classList.add(this.activeNavClass);
