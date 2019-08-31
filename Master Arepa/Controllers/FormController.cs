@@ -37,12 +37,12 @@ namespace Master_Arepa.Controllers
                 sendEmail("smtp.gmail.com", 587, "cguisao@masterarepa.com", "lotero321"
                 , "cguisao@masterarepa.com", formValues.email, formValues.subject, formValues.message);
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                BadRequest(e);
+                BadRequest(ex.Message);
             }
             
-            return Ok("Shit posted");
+            return Ok("The message has been posted successfully!");
         }
 
         // PUT api/<controller>/5

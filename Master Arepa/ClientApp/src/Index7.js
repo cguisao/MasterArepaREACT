@@ -4,7 +4,7 @@ import Navbar from './components/Navbar';
 import Home7 from './components/Home7';
 import AboutSection from './components/AboutSection';
 import MenuSection from './components/MenuSection';
-import FoodTruckSection from './components/FoodTruckSection';
+import BurgerSection from './components/BurgerSection';
 import ContactSection from './components/ContactSection';
 import FooterAlt from './components/FooterAlt';
 import TacoSection from './components/TacoSection';
@@ -43,7 +43,7 @@ class Index7 extends React.Component {
         <MenuSection />
 
         {/* ClientSection Menu */}
-        <FoodTruckSection />
+        <BurgerSection />
 
         {/* GoogleCalendar Menu */}
         < GoogleCalendar />

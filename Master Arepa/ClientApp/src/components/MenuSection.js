@@ -10,8 +10,7 @@ class MenuSection extends React.Component{
                         <Row>
                             <Col lg="4">
                                 <div className="title-heading mb-5">
-                                    <h3 className="text-dark mb-1 font-weight-light text-uppercase">Our Menu</h3>
-                                    <div className="title-border-simple position-relative"></div>
+                                    <h2 className="text-dark mb-1 font-weight-light text-uppercase">Our Menu</h2>
                                 </div>
                             </Col>
                         </Row>

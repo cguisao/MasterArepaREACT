@@ -6,7 +6,7 @@
 */
 @import url("https://fonts.googleapis.com/css?family=Rubik:300,400,500,700");
 body {
-  font-family: "Rubik", sans-serif;
+  font-family: "brandon";
 }
 
 a {
@@ -19,7 +19,7 @@ p {
 }
 
 .font-primary {
-  font-family: "Rubik", sans-serif;
+  font-family: "brandon";
 }
 
 .nav-icon li a {
@@ -450,59 +450,6 @@ p {
   vertical-align: middle;
 }
 
-.home-1-bg {
-  background-image: url("../images/home-1-bg.png");
-  position: relative;
-  background-size: cover;
-  height: 100vh;
-  background-position: center center;
-}
-
-.home-1-shape {
-  position: absolute;
-  bottom: -1px;
-  right: 0;
-  left: 0;
-}
-
-.home-1-title {
-  z-index: 1;
-  position: relative;
-}
-
-.home-2-bg {
-  background-image: url("../images/home-2-bg.png");
-  background-color: #0e6cff;
-  position: relative;
-  background-size: cover;
-  height: 100vh;
-  background-position: center center;
-}
-
-.home-2-title {
-  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-}
-
-.home-2-img {
-  z-index: 1;
-  position: relative;
-}
-
-.home-2-bottom-img {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  margin: 0 auto;
-  display: block;
-  opacity: 0.15;
-}
-
-.mover-img {
-  -webkit-animation: mover 1s infinite alternate;
-  animation: mover 1s infinite alternate;
-}
-
 @-webkit-keyframes mover {
   0% {
     -webkit-transform: translateY(0);
@@ -525,22 +472,6 @@ p {
   }
 }
 
-.home-3-bg {
-  background-image: url("../images/home-3-bg.png");
-  background-color: #005bea;
-  position: relative;
-  background-size: cover;
-  height: 100vh;
-  background-position: center center;
-}
-
-.home-3-shape {
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  left: 0;
-}
-
 .play-icon-circle {
   background: #ff8700;
   height: 46px;
@@ -549,22 +480,6 @@ p {
   text-align: center;
   border-radius: 50%;
   display: inline-block;
-}
-
-.home-3-content {
-  z-index: 1;
-  position: relative;
-}
-
-.home-4-bg {
-  background-image: url("../images/home-4-bg.jpg");
-  position: relative;
-  background-size: cover;
-  height: 100vh;
-}
-
-.home-4-content {
-  max-width: 450px;
 }
 
 .subcribe-form input {
@@ -618,39 +533,15 @@ p {
           transform: translateY(50%);
 }
 
-.home-5-bg {
-  background-image: url("../images/home-5-bg.jpg");
-  position: relative;
-  background-size: cover;
-  height: 100vh;
-  background-position: center center;
-}
-
-.home-5-content {
-  z-index: 1;
-  position: relative;
-}
-
-.home-6-bg {
-  background-image: linear-gradient(45deg, #005bea 0%, #039bea 100%);
-  position: relative;
-  background-size: cover;
-  height: 100vh;
-  background-position: center center;
-}
-
-.home-6-content {
-  background-image: url("../images/home-6-img-bg.png");
-  position: relative;
-  background-size: cover;
-  background-position: center center;
-}
-
 .home-7-bg {
   position: relative;
   background-size: cover;
   padding: 280px 0px 210px 0px;
   background-position: center center;
+}
+
+.home-7-title{
+  font-size: 60px;
 }
 
 .search-form input {
@@ -758,8 +649,8 @@ p {
   border-radius: 50px;
 }
 
-.about-desc h3 {
-  line-height: 1.5;
+.about-desc h2 {
+  line-height: 3.0;
 }
 
 .about-img img {
@@ -775,7 +666,7 @@ p {
   position: absolute;
   top: 20px;
   left: 10px;
-  max-width: 220px;
+  max-width: 520px;
   text-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
 }
 
@@ -1051,28 +942,35 @@ p {
 }
 
 .bg-foodTruck {
-  background-image: url("../images/foodTruck.jpg");
+  background-image: url("../images/foodTruck.png");
+  background-size: cover;
+  position: relative;
+  background-attachment: fixed;
+}
+
+.bg-burger {
+  background-image: url("../images/burger.png");
   background-size: cover;
   position: relative;
   background-attachment: fixed;
 }
 
 .bg-taco {
-  background-image: url("../images/taco.jpg");
+  background-image: url("../images/taco.png");
   background-size: cover;
   position: relative;
   background-attachment: fixed;
 }
 
 .bg-master {
-  background-image: url("../images/master.jpg");
+  background-image: url("../images/master.png");
   background-size: cover;
   position: relative;
   background-attachment: fixed;
 }
 
 .bg-wings {
-  background-image: url("../images/wings.jpg");
+  background-image: url("../images/wings.png");
   background-size: cover;
   position: relative;
   background-attachment: fixed;
@@ -1564,8 +1462,8 @@ p {
   -webkit-flex: 0 1 auto;
   -ms-flex: 0 1 auto;
   flex: 0 1 auto;
-  font-family: "Montserrat", sans-serif;
-  font-size: 14px;
+  font-family: "brandon";
+  font-size: 20px;
   font-weight: 700;
   margin: 0;
 }
@@ -1590,7 +1488,7 @@ p {
   -webkit-flex: 0 1 auto;
   -ms-flex: 0 1 auto;
   flex: 0 1 auto;
-  font-family: "Montserrat", sans-serif;
+  font-family: "brandon";
   font-size: 14px;
   font-weight: 700;
   color: #cca300;
@@ -1607,7 +1505,7 @@ p {
 }
 
 .title-block__title {
-  font-family: "Amatic SC", cursive;
+  font-family: "brandon";
   font-size: 66px;
   line-height: 68px;
   font-weight: 700;
@@ -1621,9 +1519,18 @@ p {
 }
 
 .title-block__subtitle--menu {
-  font-family: "Montserrat", sans-serif;
-  font-size: 12px;
+  font-family: "brandon";
+  font-size: 25px;
   font-weight: 700;
-  color: #ccc;
+  color: rgb(75, 87, 6);
   text-transform: uppercase;
+}
+@font-face{
+  font-family: 'brandon';
+  src: url('Brandon_med.otf');
+  src: url('Brandon_med.woff') format('woff');
+}
+.home-5-content {
+  z-index: 1;
+  position: relative;
 }

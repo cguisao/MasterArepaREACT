@@ -11,7 +11,7 @@ class Home7 extends React.Component {
 
         return (
             <React.Fragment>
-                <section className="home-7-bg bg-master" id="home">
+                <section className="home-7-bg bg-foodTruck" id="home">
                 <div className="bg-overlay" style={{ zIndex : "1" }}></div>
                   
                     <div className="home-center" id="contentSlider">
@@ -38,10 +38,6 @@ class Home7 extends React.Component {
                                                 </h1>
                                             </Typing>
                                         </div>
-                                        <p className="text-white-70 font-weight-light mt-4 home-5-content">
-                                            We are located a different location everyday, follow us on Instagram or Facebook 
-                                            for more details on where we are located today!!                                            
-                                        </p>
                                     </Col>
                                 </Row>
                             </div>

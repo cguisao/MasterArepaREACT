@@ -30,8 +30,7 @@ class ContactSection extends React.Component {
                         <div className="row">
                             <Col lg="12">
                                 <div className="title-heading mb-5">
-                                    <h3 className="text-dark mb-1 font-weight-light text-uppercase">Get in touch</h3>
-                                    <div className="title-border-simple position-relative"></div>
+                                    <h2 className="text-dark mb-1 font-weight-light text-uppercase">Get in touch</h2>
                                 </div>
                             </Col>
                         </div>
@@ -70,7 +69,7 @@ class ContactSection extends React.Component {
                                                     </div>
                                                     <div className="app-contact-desc text-muted pt-1">
                                                         <p className="mb-0 info-title f-13">Call :</p>
-                                                        <p className="mb-0 f-13">012-345-6789</p>
+                                                        <p className="mb-0 f-13">1 (754) 232-7860</p>
                                                     </div>
                                                 </div>
 
@@ -80,17 +79,7 @@ class ContactSection extends React.Component {
                                                     </div>
                                                     <div className="app-contact-desc text-muted pt-1">
                                                         <p className="mb-0 info-title f-13">Email :</p>
-                                                        <p className="mb-0 f-13"><Link to="" className="text-muted">youremailid@gmail.com</Link></p>
-                                                    </div>
-                                                </div>
-
-                                                <div className="contact-details mt-2">
-                                                    <div className="float-left contact-icon mr-3 mt-2">
-                                                        <i className="mdi mdi-map-marker text-muted h5"></i>
-                                                    </div>
-                                                    <div className="app-contact-desc text-muted pt-1">
-                                                        <p className="mb-0 info-title f-13">Location :</p>
-                                                        <p className="mb-0 f-13"><Link to="" className="text-muted">3179 Raccoon Run Seattle, WA 98109</Link></p>
+                                                        <p className="mb-0 f-13"><Link to="" className="text-muted">info@masterarepa.com</Link></p>
                                                     </div>
                                                 </div>
 
@@ -98,10 +87,7 @@ class ContactSection extends React.Component {
                                                     <h4 className="text-dark mb-3">Follow</h4>
                                                     <ul className="follow-icon list-inline mt-32 mb-0">
                                                         <li className="list-inline-item f-15"><Link to="#" className="social-icon text-muted"><i className="mdi mdi-facebook"></i></Link></li>&nbsp;
-                                                        <li className="list-inline-item f-15"><Link to="#" className="social-icon text-muted"><i className="mdi mdi-twitter"></i></Link></li>&nbsp;
-                                                        <li className="list-inline-item f-15"><Link to="#" className="social-icon text-muted"><i className="mdi mdi-google-plus"></i></Link></li>&nbsp;
-                                                        <li className="list-inline-item f-15"><Link to="#" className="social-icon text-muted"><i className="mdi mdi-linkedin"></i></Link></li>&nbsp;
-                                                        <li className="list-inline-item f-15"><Link to="#" className="social-icon text-muted"><i className="mdi mdi-whatsapp"></i></Link></li>&nbsp;
+                                                        <li className="list-inline-item f-15"><Link to="#" className="social-icon text-muted"><i className="mdi mdi-instagram"></i></Link></li>&nbsp;
                                                     </ul>
                                                 </div>
                                             </div>
