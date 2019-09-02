@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -6,7 +7,9 @@ using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Okta.AspNetCore;
 using System.Collections.Generic;
+using System.IO.Compression;
 
 namespace Master_Arepa
 {
@@ -26,6 +29,17 @@ namespace Master_Arepa
 
             services.AddResponseCompression();
 
+            services.Configure<GzipCompressionProviderOptions>(options =>
+            {
+                options.Level = CompressionLevel.Optimal;
+            });
+
+            services.AddResponseCompression(options =>
+            {
+                options.EnableForHttps = true;
+                options.Providers.Add<GzipCompressionProvider>();
+            });
+
             services.AddResponseCompression(options =>
             {
                 IEnumerable<string> MimeTypes = new[]
@@ -37,7 +51,9 @@ namespace Master_Arepa
                      "font/woff2",
                      "application/javascript",
                      "image/x-icon",
-                     "image/png"
+                     "image/png",
+                     "image/jpg"
+
                  };
                 //options.EnableForHttps = true;
                 options.MimeTypes = MimeTypes;
@@ -69,7 +85,6 @@ namespace Master_Arepa
             //app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
-
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
