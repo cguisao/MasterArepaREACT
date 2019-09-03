@@ -10,57 +10,49 @@ import FooterAlt from './components/FooterAlt';
 import TacoSection from './components/TacoSection';
 import GoogleCalendar from './components/GoogleCalendar';
 import Wings from './components/wings';
+import { useAuth0 } from "./react-auth0-wrapper";
 
+function Index7(){
 
-class Index7 extends React.Component {
+  return (
+    <React.Fragment>
 
-  componentDidMount() {
-    document.getElementById("main_navbar").classList.add("navbar-light");
-  }
+      {/* preloader */}
+      <Preloader />
 
+      {/* Navigation Menu */}
+      <Navbar />
 
-  render() {
+      {/* HomeSection Menu */}
+      <Home7 />
 
-    return (
-      <React.Fragment>
+      {/* AboutSection Menu */}
+      <AboutSection />
 
-        {/* preloader */}
-        <Preloader />
+      {/* TacoSection Menu */}
+      <TacoSection />
 
-        {/* Navigation Menu */}
-        <Navbar />
+      {/* MenuSection Menu */}
+      <MenuSection />
 
-        {/* HomeSection Menu */}
-        <Home7 />
+      {/* ClientSection Menu */}
+      <BurgerSection />
 
-        {/* AboutSection Menu */}
-        <AboutSection />
+      {/* GoogleCalendar Menu */}
+      < GoogleCalendar />
 
-        {/* TacoSection Menu */}
-        <TacoSection />
+      {/* Wings Menu */}
+      <Wings />
 
-        {/* MenuSection Menu */}
-        <MenuSection />
+      {/* ContactSection Menu */}
+      <ContactSection />
 
-        {/* ClientSection Menu */}
-        <BurgerSection />
+      {/* FooterAlt Menu */}
+      <FooterAlt />
 
-        {/* GoogleCalendar Menu */}
-        < GoogleCalendar />
+    </React.Fragment>
 
-        {/* Wings Menu */}
-        <Wings />
-
-        {/* ContactSection Menu */}
-        <ContactSection />
-
-        {/* FooterAlt Menu */}
-        <FooterAlt />
-
-      </React.Fragment>
-
-    );
-  }
-}
+  );
+};
 
 export default Index7;
