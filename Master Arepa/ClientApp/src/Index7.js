@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Preloader from './components/Preloader';
 import Navbar from './components/Navbar';
 import Home7 from './components/Home7';
@@ -10,9 +10,12 @@ import FooterAlt from './components/FooterAlt';
 import TacoSection from './components/TacoSection';
 import GoogleCalendar from './components/GoogleCalendar';
 import Wings from './components/wings';
-import { useAuth0 } from "./react-auth0-wrapper";
 
 function Index7(){
+
+  useEffect(() => {
+      document.getElementById("main_navbar").classList.add("navbar-light");
+    });
 
   return (
     <React.Fragment>
