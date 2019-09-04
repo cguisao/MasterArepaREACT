@@ -40,9 +40,8 @@ const Navbar = () => {
                                 </Button> 
                             )}
                             {isAuthenticated && 
-                                <button className="nav-item" >
-                                    <a href="" className="nav-link" onClick={() => logout()}>Log out</a>
-                                </button>
+                                <Button color="primary" outline color="secondary" type="button" size="sm"  onClick={() => logout()}>Log out
+                                </Button>
                             }
                         </div>
                     </div>
