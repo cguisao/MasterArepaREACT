@@ -10,48 +10,58 @@ import FooterAlt from './components/FooterAlt';
 import TacoSection from './components/TacoSection';
 import GoogleCalendar from './components/GoogleCalendar';
 import Wings from './components/wings';
+import { useAuth0 } from "./react-auth0-wrapper";
+import AdminNavbar from "./components_Admin/AdminNavbar"
 
 function Index7(){
 
+  const { isAuthenticated, loginWithRedirect, logout } = useAuth0();
+  
   useEffect(() => {
+    if(!isAuthenticated)
+    {
       document.getElementById("main_navbar").classList.add("navbar-light");
-    });
+    }
+  });
 
   return (
     <React.Fragment>
 
       {/* preloader */}
-      <Preloader />
+      {!isAuthenticated && (<Preloader />)}
 
       {/* Navigation Menu */}
-      <Navbar />
+      {!isAuthenticated && <Navbar /> }
 
       {/* HomeSection Menu */}
-      <Home7 />
+      {!isAuthenticated &&  <Home7 />}
 
       {/* AboutSection Menu */}
-      <AboutSection />
+      {!isAuthenticated && <AboutSection /> }
 
       {/* TacoSection Menu */}
-      <TacoSection />
+      {!isAuthenticated &&<TacoSection /> }
 
       {/* MenuSection Menu */}
-      <MenuSection />
+      {!isAuthenticated &&<MenuSection /> }
 
       {/* ClientSection Menu */}
-      <BurgerSection />
+      {!isAuthenticated &&<BurgerSection /> }
 
       {/* GoogleCalendar Menu */}
-      < GoogleCalendar />
+      {!isAuthenticated &&< GoogleCalendar /> }
 
       {/* Wings Menu */}
-      <Wings />
+      {!isAuthenticated && <Wings /> }
 
       {/* ContactSection Menu */}
-      <ContactSection />
+      {!isAuthenticated && <ContactSection /> }
 
       {/* FooterAlt Menu */}
-      <FooterAlt />
+      {!isAuthenticated && <FooterAlt /> }
+
+      {/* AdminNavbar Menu */}
+      {isAuthenticated && <AdminNavbar /> } 
 
     </React.Fragment>
 
