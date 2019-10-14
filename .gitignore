@@ -8,3 +8,7 @@ Master Arepa/package-lock.json
 .vscode/launch.json
 Master Arepa/ClientApp/src/auth_config.json
 node_modules/
+.vs/Master Arepa/v16/
+.vs/Master Arepa/DesignTimeBuild/
+Inventory/obj/
+Inventory/bin/
