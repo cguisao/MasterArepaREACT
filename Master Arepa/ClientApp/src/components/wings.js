@@ -1,5 +1,5 @@
 import React from 'react';
-import { Row, Col, Button } from 'reactstrap';
+import { Row } from 'reactstrap';
 import "react-bootstrap-carousel/dist/react-bootstrap-carousel.css";
 
 class Wings extends React.Component {

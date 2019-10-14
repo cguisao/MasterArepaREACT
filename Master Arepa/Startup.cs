@@ -81,7 +81,7 @@ namespace Master_Arepa
                 app.UseHsts();
             }
 
-            //app.UseHttpsRedirection();
+            app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
             app.UseMvc(routes =>

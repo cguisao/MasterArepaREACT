@@ -2,15 +2,24 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import ScrollspyNav from './scrollSpy';
 import { Button } from 'reactstrap';
+import { Dropdown } from 'react-bootstrap';
 import { useAuth0 } from "../react-auth0-wrapper";
+import Preloader from './Preloader';
 
 const Navbar = () => {
+    
+    const { loading, isAuthenticated, loginWithRedirect, logout, user } = useAuth0();
 
-    const { isAuthenticated, loginWithRedirect, logout } = useAuth0();
+    if (loading) {
+        return (
+          <Preloader />
+        );
+      }
 
     return (
         <React.Fragment>
-            <nav id="main_navbar" className="navbar navbar-expand-lg  fixed-top navbar-custom sticky sticky-dark">
+            {!isAuthenticated && (
+                <nav id="main_navbar" className="navbar navbar-expand-lg  fixed-top navbar-custom sticky sticky-dark">
                 <div className="container">
                     <Link className="navbar-brand logo" to="/">
                         <img src="images/logo.jpg" alt="" height="95" />
@@ -34,19 +43,58 @@ const Navbar = () => {
                                 <li className="nav-item"><a href="#contact" className="nav-link">Contact us</a> </li>
                             </ul>
                         </ScrollspyNav>
-                        <div className="navbar-nav ml-auto">
-                            {!isAuthenticated && ( 
-                                <Button color="primary" outline color="secondary" type="button" size="sm" onClick={() => loginWithRedirect({}) }>Self Service
-                                </Button> 
-                            )}
-                            {isAuthenticated && 
-                                <Button color="primary" outline color="secondary" type="button" size="sm"  onClick={() => logout()}>Log out
-                                </Button>
-                            }
-                        </div>
                     </div>
+                    
+                    {/* <div className="collapse navbar-collapse" id="navbarCollapse">
+                        <div className="navbar-nav ml-auto">
+                            <Button color="primary" outline color="secondary" type="button" size="sm" onClick={() => loginWithRedirect("/Dashboard") }>Self Service
+                            </Button> 
+                        </div>
+                    </div> */}
                 </div>
             </nav>
+             )}
+             {isAuthenticated && (
+                <nav className="navbar navbar-expand-lg  fixed-top navbar-custom sticky-dark">
+                    <div className="container">
+                        <Link className="navbar-brand logo" to="/">
+                            <img src="images/logo.jpg" alt="" height="95" />
+                        </Link>
+                        <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                            <i className="mdi mdi-menu"></i>
+                        </button>
+
+                        <div className="collapse navbar-collapse">
+                            <div className="navbar-nav ml-auto">
+                                <ul className="navbar-nav ml-auto navbar-center" id="mySidenav">
+                                    <li className="nav-item"><Link className="nav-link" to="/">Home</Link></li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div className="collapse navbar-collapse" id="navbarCollapse">
+                            <div className="navbar-nav ml-auto">
+                                <Dropdown>
+                                    <Dropdown.Toggle variant="outline-dark"><img
+                                        src={user.picture}
+                                        alt="Profile"
+                                        className="nav-user-profile rounded-circle"
+                                        width="50"/>
+                                </Dropdown.Toggle>
+                                    <Dropdown.Menu>
+                                        <Dropdown.Item >{user.name}</Dropdown.Item>
+                                        <Dropdown.Divider />
+                                        <Dropdown.Item ><Link to="/Profile">Profile</Link></Dropdown.Item>
+                                        <Dropdown.Divider />
+                                        <Dropdown.Item onClick={() => logout()}>Logout</Dropdown.Item>
+                                    </Dropdown.Menu>
+                                </Dropdown>
+                            </div>
+                        </div>
+                    </div>
+                </nav>
+              )}
+            
         </React.Fragment>
     );
 };

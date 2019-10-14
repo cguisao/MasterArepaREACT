@@ -14,7 +14,7 @@ class BurgerSection extends React.Component {
                             <div className="container">
                             <Row className="justify-content-center">
                                 <h1  className="text-white home-7-title mb-0"> 
-                                    <span className="element">Water Mouth Burgers</span>
+                                    <span className="element">Mouthwatering Burgers</span>
                                 </h1>
                             </Row>
                             </div>

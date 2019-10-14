@@ -1,9 +1,6 @@
 import React from 'react';
 import { Row, Col } from 'reactstrap';
 import Typing from 'react-typing-animation';
-import BackgroundSlideshow from 'react-background-slideshow'
-
-import image1 from './images/master.jpg';
 
 class Home7 extends React.Component {
     
@@ -13,7 +10,6 @@ class Home7 extends React.Component {
             <React.Fragment>
                 <section className="home-7-bg bg-foodTruck" id="home">
                 <div className="bg-overlay" style={{ zIndex : "1" }}></div>
-                  
                     <div className="home-center" id="contentSlider">
                         <div className="home-desc-center">
                             <div className="container">

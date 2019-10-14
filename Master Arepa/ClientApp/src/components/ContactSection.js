@@ -17,7 +17,8 @@ class ContactSection extends React.Component {
             method: 'POST', 
             body: data,
         }).then((result) => {
-            alert("Message has successfully been sent!");
+            console.log(result.text);
+            alert("The message has been sent!");
             window.location.reload();
         }).catch(err => console.error(err))
     }

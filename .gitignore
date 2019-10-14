@@ -7,3 +7,4 @@ Master Arepa/package-lock.json
 .vscode/tasks.json
 .vscode/launch.json
 Master Arepa/ClientApp/src/auth_config.json
+node_modules/
