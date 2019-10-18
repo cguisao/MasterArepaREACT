@@ -5,48 +5,79 @@
     ViewData["Title"] = "Log in";
 }
 
-<h1>@ViewData["Title"]</h1>
-<div class="row">
-    <div class="col-md-4">
-        <section>
-            <form id="account" method="post">
-                <h4>Use a local account to log in.</h4>
-                <hr />
-                <div asp-validation-summary="All" class="text-danger"></div>
-                <div class="form-group">
-                    <label asp-for="Input.Email"></label>
-                    <input asp-for="Input.Email" class="form-control" />
-                    <span asp-validation-for="Input.Email" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="Input.Password"></label>
-                    <input asp-for="Input.Password" class="form-control" />
-                    <span asp-validation-for="Input.Password" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <div class="checkbox">
-                        <label asp-for="Input.RememberMe">
-                            <input asp-for="Input.RememberMe" />
-                            @Html.DisplayNameFor(m => m.Input.RememberMe)
-                        </label>
+<!--begin::Fonts -->
+<script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.16/webfont.js"></script>
+<script>
+    WebFont.load({
+        google: {
+            "families": ["Poppins:300,400,500,600,700", "Roboto:300,400,500,600,700"]
+        },
+        active: function () {
+            sessionStorage.fonts = true;
+        }
+    });
+</script>
+
+<!--end::Fonts -->
+
+<partial name="_ArepaCssImportsPartial" />
+
+<!-- begin::Body -->
+<body class="kt-quick-panel--right kt-demo-panel--right kt-offcanvas-panel--right kt-header--fixed kt-header-mobile--fixed kt-subheader--enabled kt-subheader--fixed kt-subheader--solid kt-aside--enabled kt-aside--fixed kt-page--loading">
+    <!-- begin:: Page -->
+    <div class="kt-grid kt-grid--ver kt-grid--root">
+        <div class="kt-grid kt-grid--hor kt-grid--root  kt-login kt-login--v3 kt-login--signin" id="kt_login">
+            <div class="kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor" style="background-image: url(~/assets/media//bg/bg-3.jpg);">
+                <div class="kt-grid__item kt-grid__item--fluid kt-login__wrapper">
+                    <div class="kt-login__container">
+                        <div class="kt-login__logo">
+                            <a href="#">
+                                <img src="~/assets/media/logos/logo.png">
+                            </a>
+                        </div>
+                        <div class="kt-login__signin">
+                            <div class="kt-login__head">
+                                <h3 class="kt-login__title">Login</h3>
+                            </div>
+                            <section>
+                                <form asp-route-returnUrl="@Model.ReturnUrl" method="post" class="kt-form">
+                                    <div asp-validation-summary="All" class="text-danger"></div>
+                                    <div class="input-group">
+                                        <input asp-for="Input.Email" class="form-control" type="email" placeholder="Email" />
+                                        <span asp-validation-for="Input.Email" class="text-danger"></span>
+                                    </div>
+                                    <div class="input-group">
+                                        <input asp-for="Input.Password" class="form-control" type="password" placeholder="Password" />
+                                        <span asp-validation-for="Input.Password" class="text-danger"></span>
+                                    </div>
+                                    <div class="row kt-login__extra">
+                                        <div class="col">
+                                            <label asp-for="Input.RememberMe">
+                                                <input asp-for="Input.RememberMe" />
+                                                @Html.DisplayNameFor(m => m.Input.RememberMe)
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <button type="submit" class="btn btn-primary">Log in</button>
+                                    </div>
+                                    <div class="kt-login__account">
+                                        <span class="kt-login__account-msg">
+                                            Don't have an account yet ?
+                                        </span>
+                                        &nbsp;&nbsp;
+                                        <a class="kt-login__account-link" asp-area="Identity" asp-page="/Account/Register">Register!</a>
+                                    </div>
+                                </form>
+                            </section>
+                        </div>
                     </div>
                 </div>
-                <div class="form-group">
-                    <button type="submit" class="btn btn-primary">Log in</button>
-                </div>
-                <div class="form-group">
-                    <p>
-                        <a id="forgot-password" asp-page="./ForgotPassword">Forgot your password?</a>
-                    </p>
-                    <p>
-                        <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Register as a new user</a>
-                    </p>
-                </div>
-            </form>
-        </section>
+            </div>
+        </div>
     </div>
-</div>
-
+    <!-- end:: Page -->
+</body>
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
 }
