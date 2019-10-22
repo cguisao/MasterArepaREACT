@@ -45,12 +45,12 @@ const Navbar = () => {
                         </ScrollspyNav>
                     </div>
                     
-                    {/* <div className="collapse navbar-collapse" id="navbarCollapse">
+                    <div className="collapse navbar-collapse" id="navbarCollapse">
                         <div className="navbar-nav ml-auto">
                             <Button color="primary" outline color="secondary" type="button" size="sm" onClick={() => loginWithRedirect("/Dashboard") }>Self Service
                             </Button> 
                         </div>
-                    </div> */}
+                    </div>
                 </div>
             </nav>
              )}

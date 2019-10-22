@@ -4,11 +4,13 @@ import Preloader from "../components/Preloader";
 import { Row, Col} from 'reactstrap';
 
 const Profile = () => {
-  const { loading, user } = useAuth0();
-
+    const { loading, user } = useAuth0();
+    
   if (loading || !user) {
     return <Preloader />;
   }
+
+  var role = user[Object.keys(user)[0]];
 
   return (
     <section className="section bg-light" id="contact">
@@ -19,7 +21,7 @@ const Profile = () => {
           <div className="row">
               <Col lg="12">
                   <div className="title-heading mb-5">
-                      <h2 className="text-dark mb-1 font-weight-light text-uppercase">{user.name}</h2>
+                      <h2 className="text-dark mb-1 font-weight-light text-uppercase">{role}</h2>
                   </div>
               </Col>
           </div>
@@ -28,9 +30,8 @@ const Profile = () => {
                   <div className="contact-box p-5">
                       <Row>
                           <Col lg="8" md="6">
-                              <div className="custom-form p-3">
-                                Fill infor later..
-                              </div>
+                            <code>{JSON.stringify(user, null, 2)}</code>
+                            
                           </Col>
                       </Row>
                   </div>

@@ -8,6 +8,7 @@ import config from "./auth_config.json";
 import Profile from "./components_Admin/Profile";
 import NavBar from "./components/Navbar";
 import AddItem from './ComponentsInventory/AddItem';
+import PrivateRoute from "./components_Admin/PrivateRoute";
 const baseUrl = document.getElementsByTagName('base')[0].getAttribute('href');
 const rootElement = document.getElementById('root');
 
@@ -31,8 +32,8 @@ ReactDOM.render(
           <NavBar />
         <Switch>
           <Route path="/" component={Main} exact />
-          <Route path="/profile" component={Profile} />
-          <Route path="/addItem" component={AddItem} />
+          <Route  path="/profile" component={Profile} />
+          <Route  path="/addItem" component={AddItem} />
         </Switch>
         </BrowserRouter>
     </Auth0Provider>,
