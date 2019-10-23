@@ -1,17 +1,15 @@
 import React from 'react';
 import NavMenu from "./NavMenu";
-import UserListNav from './UserListNav';
+import LogoNav from "./LogoNav";
 
 function VisitorNavbar() {
 
     return (<React.Fragment>
         <nav className="navbar navbar-expand-lg  fixed-top navbar-custom sticky-dark">
-            <div className="container">
-                
-                <UserListNav />
+            <div className="container">                
+                <LogoNav />
 
                 <NavMenu />
-
             </div>
         </nav>
     </React.Fragment>);
