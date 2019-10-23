@@ -6,16 +6,10 @@ import Preloader from './components/Preloader';
 
 function Index(){
 
-  const { loading, isAuthenticated } = useAuth0();
-  
-  useEffect(() => {
-    if(!loading && !isAuthenticated){
-      document.getElementById("main_navbar").classList.add("navbar-light");
-    }
-  })
+  const { loading, isAuthenticated, user } = useAuth0();
   
   if (loading) {
-    return (<Preloader />
+        return (<Preloader />
       );
   }
 
