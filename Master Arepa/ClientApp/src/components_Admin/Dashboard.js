@@ -1,31 +1,40 @@
 import React from 'react';
-import { Row, Col } from 'reactstrap';
+import { useAuth0 } from "../react-auth0-wrapper";
+import NotAuthenticated from './NotAuthenticated';
+import Preloader from '../components/Preloader';
+import AdminDashboard from './AdminDashboard';
+import UserDashboard from './UserDashboard';
+import VisitorDashboard from './VisitorDashboard';
 
 function Dashboard(){
-    return(
-        <section className="section bg-about bg-light-about bg-light" id="dashboard">
-            < br/>
-            < br/>
-            < br/>
-            <Row className="align-items-center p-4">
-                <Col md="6">
-                    <div className="about-desc container">
-                        <div className="title-heading p-4">
-                            <h2 className="text-dark mb-1 font-weight-light text-uppercase">Master Arepa Dashboard</h2>
-                        </div>
-                        <p className="text-muted f-20">
-                        </p>
-                    </div>
-                </Col>
 
-                <Col md="6">
-                    <div className="about-img light-img position-relative p-4">
-                        <img src="images/master.png" alt="" className="img-fluid mx-auto d-block" />
-                    </div>
-                </Col>
-            </Row>
-        </section>
-    );
+    const { loading, isAuthenticated, user } = useAuth0();
+
+    if (loading) {
+        return <Preloader />;
+    }
+
+    // Not Authorized if not logged in
+    if(!isAuthenticated){
+        return <NotAuthenticated />;
+    }
+
+    var role = user[Object.keys(user)[0]];
+
+    // Admin Dashboard
+    if (isAuthenticated && role == "Admin") {
+        return <AdminDashboard />;
+    }
+
+    // User Dashboard 
+    else if (isAuthenticated && role == "User") {
+        return <UserDashboard />;
+    }
+
+    // Visitor Dashboard
+    else{
+        return <VisitorDashboard />;
+    }
 }
 
 export default Dashboard;
