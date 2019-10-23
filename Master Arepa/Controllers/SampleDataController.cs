@@ -11,17 +11,6 @@ namespace Master_Arepa.Controllers
     [ApiController]
     public class SampleDataController : Controller
     {
-        [HttpPost("[action]")]
-        public ActionResult<ContactUs> Post([FromForm]ContactUs formInfo)
-        {
-            return Ok("Shit posted");
-        }
-        [HttpPost("[action]")]
-        public async Task<ActionResult<ContactUs>> Post2(List<ContactUs> s)
-        {
-            return Ok("The request is good");
-        }
-
         private static string[] Summaries = new[]
         {
             "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
