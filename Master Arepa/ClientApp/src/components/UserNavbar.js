@@ -2,24 +2,24 @@ import React from 'react';
 import NavMenu from '../components_Admin/NavMenu';
 import UserListNav from '../components_Admin/UserListNav';
 import LogoNav from '../components_Admin/LogoNav';
+import { Nav, Navbar, Container } from 'react-bootstrap';
 
 function UserNavbar() {
-    return (<React.Fragment>
-        <nav className="navbar navbar-expand-lg  fixed-top navbar-custom sticky-dark">
-            <div className="container">                
-                <LogoNav />
-
-                <div className="collapse navbar-collapse">
-                    <div className="navbar-nav ml-auto">
-                        <ul className="navbar-nav ml-auto navbar-right" id="mySidenav">
-                            <UserListNav />
-                        </ul>
-                    </div>
-                </div>
+    return (
+        <section className="section bg-about bg-light-about bg-light" id="dashboard">
+            <Navbar fixed="top" expand="lg" bg="dark" variant="dark" >
+                <Container>
+                <Navbar.Collapse id="responsive-navbar-nav">
+                    <LogoNav />
+                    <Nav>
+                        <UserListNav />
+                    </Nav>
+                </Navbar.Collapse>
                 <NavMenu />
-            </div>
-        </nav>
-    </React.Fragment>);
+                </Container>
+            </Navbar>
+        </section>
+    );
 }
 
 export default UserNavbar;

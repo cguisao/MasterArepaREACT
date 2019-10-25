@@ -1,16 +1,12 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Nav, Navbar } from 'react-bootstrap';
 
 function LogoNav() {
     return (<React.Fragment>
-        <div>
-            <Link className="navbar-brand logo" to="/">
+        <Navbar.Brand href="/" >
                 <img src="images/logo.jpg" alt="" height="95" />
-            </Link>
-            <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-                <i className="mdi mdi-menu"></i>
-            </button>
-        </div>
+            </Navbar.Brand>
+        <Navbar.Brand href="/">Master Arepa</Navbar.Brand>
     </React.Fragment>);
 }
 

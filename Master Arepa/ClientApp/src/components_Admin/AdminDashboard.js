@@ -11,9 +11,6 @@ function AdminDashboard() {
     var role = user[Object.keys(user)[0]];
     return (<React.Fragment>
         <section className="section bg-about bg-light-about bg-light" id="dashboard">
-            <br />
-            <br />
-            <br />
             <Row className="align-items-center p-4">
                 <Col md="6">
                     <div className="about-desc container">

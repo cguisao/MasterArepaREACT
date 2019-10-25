@@ -14,17 +14,7 @@ const Profile = () => {
   if(role == "") {role = "Visitor"}
   return (
     <section className="section bg-light" id="contact">
-        <br />
-        <br />
-        <br />
       <div className="container">
-          <div className="row">
-              <Col lg="12">
-                  <div className="title-heading mb-5">
-                      <h2 className="text-dark mb-1 font-weight-light text-uppercase"></h2>
-                  </div>
-              </Col>
-          </div>
           <Row>
              <Col lg="12">
                   <div className="title-heading mb-5">
@@ -34,7 +24,7 @@ const Profile = () => {
               <Col lg="12">
                   <div className="contact-box p-5">
                       <Row>
-                          <Col lg="8" md="6">
+                          <Col lg="12" md="6">
                             <p className="mb-0 f-13"><b>Name: </b>{user.name}</p>
                             <p className="mb-0 f-13"><b>Email: </b>{user.email}</p>
                           </Col>

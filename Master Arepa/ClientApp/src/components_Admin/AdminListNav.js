@@ -1,11 +1,14 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { NavDropdown } from 'react-bootstrap';
 
 function AdminListNav() {
     return (
-    <React.Fragment>
-        <li className="nav-item"><Link className="nav-link" to="/AddInventoryItem">Add Item</Link></li>
-    </React.Fragment>);
+        <NavDropdown title="Inventory" variant="outline-dark">
+            <NavDropdown.Item href="/AddInventoryItem" >Add Item</NavDropdown.Item>
+            <NavDropdown.Divider />
+            <NavDropdown.Item >Separated link</NavDropdown.Item>
+        </NavDropdown>
+    );
 }
 
 export default AdminListNav;

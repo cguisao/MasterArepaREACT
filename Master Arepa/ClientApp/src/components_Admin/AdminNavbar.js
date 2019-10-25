@@ -1,27 +1,27 @@
 import React from 'react';
-import NavMenu from './NavMenu';
 import UserListNav from './UserListNav';
-import LogoNav from './LogoNav';
 import AdminListNav from "./AdminListNav";
+import { Nav, Navbar, Container } from 'react-bootstrap';
+import NavMenu from './NavMenu';
+import LogoNav from './LogoNav';
 
 function AdminNavbar() {
-    return (<React.Fragment>
-        <nav className="navbar navbar-expand-lg  fixed-top navbar-custom sticky-dark">
-            <div className="container">                
-                <LogoNav />
-
-                <div className="collapse navbar-collapse">
-                    <div className="navbar-nav ml-auto">
-                        <ul className="navbar-nav ml-auto navbar-right" id="mySidenav">
-                            <UserListNav />
-                            <AdminListNav />
-                        </ul>
-                    </div>
-                </div>
+    return (
+        <section className="section bg-about bg-light-about bg-light" id="dashboard">
+            <Navbar fixed="top" expand="lg" bg="dark" variant="dark" >
+                <Container>
+                <Navbar.Collapse id="responsive-navbar-nav">
+                    <LogoNav />
+                    <Nav>
+                        <UserListNav />
+                        <AdminListNav />
+                    </Nav>
+                </Navbar.Collapse>
                 <NavMenu />
-            </div>
-        </nav>
-    </React.Fragment>);
+                </Container>
+            </Navbar>
+        </section>
+    );
 }
 
 export default AdminNavbar;

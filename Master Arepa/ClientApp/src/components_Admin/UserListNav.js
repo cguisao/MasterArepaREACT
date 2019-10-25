@@ -1,11 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { Navbar, Nav } from 'react-bootstrap';
 
 function UserListNav() {
     return (
-    <React.Fragment>
-        <li className="nav-item"><Link className="nav-link" to="/">Home</Link></li>
-    </React.Fragment>);
+        <Nav.Link ><Link className="nav-link" to="/">Home</Link></Nav.Link>
+    );
 }
 
 export default UserListNav;
