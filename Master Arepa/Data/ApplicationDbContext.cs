@@ -12,7 +12,7 @@ namespace Master_Arepa.Data
         {
         }
 
-        public DbSet<AddItem> AddItem { get; set; }
+        public DbSet<InventoryItem> InventoryItem { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

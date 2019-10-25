@@ -1,19 +1,39 @@
-import React, { useState } from "react";
+import React from "react";
 import { Row, Col, Form, Input, Label, Button } from 'reactstrap';
 
 function handleSubmit(event) {
 
     event.preventDefault();
     const data = new FormData(event.target);
-    
-    fetch('api/Form/AddItem', {
-        method: 'POST', 
-        body: data,
-    }).then((result) => {
-        console.log(result.text);
-        alert("Item has been added successfully!");
-        window.location.reload(true);
-    }).catch(err => console.error(err))
+
+    fetch('api/Admin/AddItem', {
+        method: 'POST',
+        body: data
+    }).then(function(response){
+        return response.json();
+    }).then(function(data){
+        if(data.response != undefined){
+            // Show that nothing went wrong
+            // Show that Item is already in the database
+            if(data.response == "Success"){
+                alert("Item added successfully!");
+                window.location.reload();
+            }
+            // Show that the Item has successfully been added then reload the page
+            else if(data.response == "Error")
+            {
+                alert(data.error);
+            }
+            //console.log(data.response);
+        }
+        else{
+            // Show that there is an error on the server
+            console.log("Error on server info: \n" + "data.response" + data.ClassName + "\n" + "data.response" + data.response);
+        }
+    }).catch(function(err){
+        console.log("Server completely down info: \n" + err);
+    })
+
 }
 
 function AddItem(){
@@ -27,7 +47,7 @@ function AddItem(){
           <div className="row">
               <Col lg="12">
                   <div className="title-heading mb-5">
-                      <h2 className="text-dark mb-1 font-weight-light text-uppercase">Add Item</h2>
+                      <h2 className="text-dark mb-1 font-weight-light text-uppercase">Add Inventory Item</h2>
                   </div>
               </Col>
           </div>
@@ -40,8 +60,8 @@ function AddItem(){
                               <div id="message"></div>
                                 <Form onSubmit={handleSubmit}>
                                     <Col sx="3">
-                                        <Label htmlFor="email">Item</Label>
-                                        <Input type="text" name="Item" id="Item" placeholder="New Item" />
+                                        <Label htmlFor="item">Item</Label>
+                                        <Input type="text" name="Item" id="Item" required="true" placeholder="New Item" />
                                     </Col>
                                     <Col>
                                         <Button color="primary">Submit</Button>

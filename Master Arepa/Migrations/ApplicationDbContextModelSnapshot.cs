@@ -15,7 +15,7 @@ namespace Master_Arepa.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.2.2-servicing-10034")
+                .HasAnnotation("ProductVersion", "2.2.6-servicing-10079")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -70,7 +70,7 @@ namespace Master_Arepa.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
-            modelBuilder.Entity("Master_Arepa.Models.InventoryViewModels.AddItem", b =>
+            modelBuilder.Entity("Master_Arepa.Models.InventoryViewModels.InventoryItem", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -80,7 +80,7 @@ namespace Master_Arepa.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("AddItem");
+                    b.ToTable("InventoryItem");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>

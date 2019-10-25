@@ -17,13 +17,6 @@ namespace Master_Arepa.Controllers
     [Route("api/[controller]")]
     public class FormController : Controller
     {
-        public ApplicationDbContext _context;
-
-        public FormController(ApplicationDbContext context)
-        {
-            _context = context;
-        }
-
         // POST api/<controller>
         [HttpPost("[action]")]
         public ActionResult<ContactUs> PageForm([FromForm]ContactUs formValues)
@@ -38,33 +31,6 @@ namespace Master_Arepa.Controllers
             {
                 return BadRequest(ex);
             }
-        }
-
-        [HttpPost("[action]")]
-        public ActionResult<ContactUs> AddItem([FromForm]AddItem formValues)
-        {
-            try
-            {
-                _context.AddItem.Add(new AddItem { Item = formValues.Item });
-                _context.SaveChanges();
-                return Ok();
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex);
-            }
-        }
-
-        // PUT api/<controller>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
-        {
-        }
-
-        // DELETE api/<controller>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
         }
 
         public void sendEmail(string smtpClient, int port, string emailCredential, string passwordCredential,

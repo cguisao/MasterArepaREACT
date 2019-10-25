@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Master_Arepa.Models.InventoryViewModels
 {
-    public class AddItem
+    public class InventoryItem
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
