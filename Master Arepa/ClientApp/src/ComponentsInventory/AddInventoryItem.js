@@ -84,6 +84,10 @@ function AddItem(){
         return <Preloader />;
     }
 
+    if(!isAuthenticated){
+        return <NotAuthenticated />;
+    }
+
     var role = user[Object.keys(user)[0]];
 
     if(isAuthenticated && role == "Admin"){
