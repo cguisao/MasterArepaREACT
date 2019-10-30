@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
 using Master_Arepa.Data;
 using Master_Arepa.Models;
 using Master_Arepa.Models.InventoryViewModels;
@@ -51,6 +48,5 @@ namespace Master_Arepa.Controllers
         {
             return Ok(_context.InventoryItem.ToList());
         }
-        
     }
 }

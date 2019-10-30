@@ -9,7 +9,8 @@ import Profile from "./components_Admin/Profile";
 import NavBar from "./components/Navbar";
 import AddInventoryItem from './ComponentsInventory/AddInventoryItem';
 import InventoryList from './ComponentsInventory/InventoryList';
-import PrivateRoute from "./components_Admin/PrivateRoute";
+import FoodTruckInventory from './ComponentsInventory/FoodTruckInventory';
+import MainInventory from './ComponentsInventory/MainInventory';
 const baseUrl = document.getElementsByTagName('base')[0].getAttribute('href');
 const rootElement = document.getElementById('root');
 
@@ -33,9 +34,11 @@ ReactDOM.render(
           <NavBar />
         <Switch>
           <Route path="/" component={Main} exact />
-          <Route  path="/profile" component={Profile} />
-          <Route  path="/addInventoryItem" component={AddInventoryItem} />
-          <Route  path="/InventoryList" component={InventoryList} />
+          <Route path="/profile" component={Profile} />
+          <Route path="/addInventoryItem" component={AddInventoryItem} />
+          <Route path="/InventoryList" component={InventoryList} />
+          <Route path="/FoodTruckInventory" component={FoodTruckInventory} />
+          <Route path="/MainInventory" component={MainInventory}/>
         </Switch>
         </BrowserRouter>
     </Auth0Provider>,

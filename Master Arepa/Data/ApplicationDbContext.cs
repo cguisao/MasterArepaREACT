@@ -14,6 +14,14 @@ namespace Master_Arepa.Data
 
         public DbSet<InventoryItem> InventoryItem { get; set; }
 
+        public DbSet<HomeInventoryItem> HomeInventoryItem { get; set; }
+
+        public DbSet<FTInventoryItem> FTInventoryItems { get; set; }
+
+        public DbSet<TentInventoryItem> TentInventoryItems { get; set; }
+
+        public DbSet<InventoryTimeStamp> InventoryTimeStamp { get; set; }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);

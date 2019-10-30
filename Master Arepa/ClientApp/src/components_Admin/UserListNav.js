@@ -1,10 +1,13 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { Navbar, Nav } from 'react-bootstrap';
+import { NavDropdown } from 'react-bootstrap';
 
 function UserListNav() {
     return (
-        <Nav.Link ><Link className="nav-link" to="/">Home</Link></Nav.Link>
+        <NavDropdown title="Food Truck Inventory" variant="outline-dark">
+            <NavDropdown.Item href="/MainInventory" >Home Inventory</NavDropdown.Item>
+            <NavDropdown.Divider />
+            <NavDropdown.Item href="/FoodTruckInventory" >Daily Inventory</NavDropdown.Item>
+        </NavDropdown>
     );
 }
 
