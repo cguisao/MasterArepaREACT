@@ -4,14 +4,16 @@ using Master_Arepa.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Master_Arepa.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20191029040752_Arepa.V1.3")]
+    partial class ArepaV13
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -123,23 +125,6 @@ namespace Master_Arepa.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("InventoryItem");
-                });
-
-            modelBuilder.Entity("Master_Arepa.Models.InventoryViewModels.InventoryTimeStamp", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("InventoryType");
-
-                    b.Property<DateTime>("TimeStamp");
-
-                    b.Property<string>("User");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("InventoryTimeStamp");
                 });
 
             modelBuilder.Entity("Master_Arepa.Models.InventoryViewModels.TentInventoryItem", b =>

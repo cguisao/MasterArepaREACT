@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Master_Arepa.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20191024032056_Arepa_V1.0")]
-    partial class Arepa_V10
+    [Migration("20191028043053_Arepa.V1.1")]
+    partial class ArepaV11
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -72,6 +72,40 @@ namespace Master_Arepa.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
+            modelBuilder.Entity("Master_Arepa.Models.InventoryViewModels.FTInventoryItem", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Item");
+
+                    b.Property<DateTime>("TimeStamp");
+
+                    b.Property<string>("User");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("FTInventoryItems");
+                });
+
+            modelBuilder.Entity("Master_Arepa.Models.InventoryViewModels.HomeInventoryItem", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Item");
+
+                    b.Property<DateTime>("TimeStamp");
+
+                    b.Property<string>("User");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("HomeInventoryItem");
+                });
+
             modelBuilder.Entity("Master_Arepa.Models.InventoryViewModels.InventoryItem", b =>
                 {
                     b.Property<int>("Id")
@@ -83,6 +117,23 @@ namespace Master_Arepa.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("InventoryItem");
+                });
+
+            modelBuilder.Entity("Master_Arepa.Models.InventoryViewModels.TentInventoryItem", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Item");
+
+                    b.Property<DateTime>("TimeStamp");
+
+                    b.Property<string>("User");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("TentInventoryItems");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
