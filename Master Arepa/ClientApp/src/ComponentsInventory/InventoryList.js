@@ -7,43 +7,44 @@ import Preloader from "../components/Preloader";
 
 const InventoryList  = () => {
     
-    const [setErrors] = useState(false);
-    const [data, setItems] = useState({});
-  
-    useEffect(() => {
-        async function fetchData() {
-          const res = await fetch("api/Admin/GetInventoryItem");
-          res
-            .json()
-            .then(res => setItems(res))
-            .catch(err => setErrors(err));
-        }
+const [setErrors] = useState(false);
+const [data, setItems] = useState({});
+
+useEffect(() => {
+    async function fetchData() {
+        const res = await fetch("api/Admin/GetInventoryItem");
+        res
+        .json()
+        .then(res => setItems(res))
+        .catch(err => setErrors(err));
+    }
+
+    fetchData();
+    });
+
+    const { loading, isAuthenticated, user } = useAuth0();
+
+    if (loading) {
+        return <Preloader />;
+    }
     
-        fetchData();
-      });
+    if(!isAuthenticated){
+    return <NotAuthenticated />;
+    }
 
-      const { loading, isAuthenticated, user } = useAuth0();
-
-      if (loading) {
-          return <Preloader />;
-      }
-      
-      if(!isAuthenticated){
-        return <NotAuthenticated />;
-      }
-
-      var role = user[Object.keys(user)[0]];
-      
-      if(isAuthenticated && role == "Admin"){
-        return (
+    var role = user[Object.keys(user)[0]];
+    
+    if(isAuthenticated && role == "Admin"){
+    return (
+        <section className="section bg-about bg-light-about bg-light" id="FoodTruckInventory">
             <Container>
                 <div className="row">
-                  <Col lg="12">
-                      <div className="title-heading mb-5">
-                          <h2 className="text-dark mb-1 font-weight-light text-uppercase">Inventory Item List</h2>
-                      </div>
-                  </Col>
-              </div>
+                    <Col lg="12">
+                        <div className="title-heading mb-5">
+                            <h2 className="text-dark mb-1 font-weight-light text-uppercase">Inventory Item List</h2>
+                        </div>
+                    </Col>
+                </div>
                 <Row>
                     <Col lg="12">
                         <div className="contact-box p-5">
@@ -68,11 +69,12 @@ const InventoryList  = () => {
                     </Col>
                 </Row>
             </Container>
-        );   
-      }
-      else{
+        </section>
+    );   
+    }
+    else{
         return <NotAuthenticated />;
-      }
+    }
 }
 
 export default InventoryList;

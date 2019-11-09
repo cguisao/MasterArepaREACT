@@ -7,7 +7,7 @@ function VisitorNavbar() {
 
     return (
         <section className="section bg-about bg-light-about bg-light" id="dashboard">
-            <Navbar fixed="top" expand="lg" bg="dark" variant="dark" >
+            <Navbar collapseOnSelect expand="lg" bg="warning" variant="light">
                 <Container>
                     <Navbar.Collapse id="responsive-navbar-nav">
                         <LogoNav />

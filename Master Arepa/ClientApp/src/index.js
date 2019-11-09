@@ -9,6 +9,7 @@ import Profile from "./components_Admin/Profile";
 import NavBar from "./components/Navbar";
 import AddInventoryItem from './ComponentsInventory/AddInventoryItem';
 import InventoryList from './ComponentsInventory/InventoryList';
+import HomeInventoryList from './ComponentsInventory/HomeInventoryList';
 import FoodTruckInventory from './ComponentsInventory/FoodTruckInventory';
 import MainInventory from './ComponentsInventory/MainInventory';
 const baseUrl = document.getElementsByTagName('base')[0].getAttribute('href');
@@ -39,6 +40,7 @@ ReactDOM.render(
           <Route path="/InventoryList" component={InventoryList} />
           <Route path="/FoodTruckInventory" component={FoodTruckInventory} />
           <Route path="/MainInventory" component={MainInventory}/>
+          <Route path="/HomeInventoryList" component={HomeInventoryList}/>
         </Switch>
         </BrowserRouter>
     </Auth0Provider>,

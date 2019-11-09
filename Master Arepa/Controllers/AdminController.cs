@@ -1,9 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using EFCore.BulkExtensions;
 using Master_Arepa.Data;
 using Master_Arepa.Models;
 using Master_Arepa.Models.InventoryViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Master_Arepa.Controllers
 {
@@ -24,14 +27,26 @@ namespace Master_Arepa.Controllers
             {
                 var allInventory = _context.InventoryItem.ToDictionary(x => x.Item);
 
-                // if Inventory Item already exists
                 if(allInventory.ContainsKey(formValues.Item))
                 {
                     return Ok( new APIResponse { response = "Error", error = "Value already in the database!" });  
                 }
 
-                // If Inventory Item has been added successfully
-                else{
+                else
+                {
+                    var lastRecordDate = _context.HomeInventoryItem
+                        .OrderByDescending(x => x.TimeStamp).FirstOrDefault();
+
+                    if (lastRecordDate != null && DatesAreInTheSameWeek(lastRecordDate.TimeStamp, DateTime.Now))
+                    {
+                        _context.HomeInventoryItem.Add(new HomeInventoryItem
+                        {
+                            Item = formValues.Item,
+                            Quantity = 0,
+                            TimeStamp = DateTime.Now
+                        });
+                    }
+
                     _context.InventoryItem.Add(new InventoryItem { Item = formValues.Item });
                     _context.SaveChanges();
                     return Ok( new APIResponse { response = "Success" });  
@@ -47,6 +62,17 @@ namespace Master_Arepa.Controllers
         public ActionResult<InventoryItem> GetInventoryItem()
         {
             return Ok(_context.InventoryItem.ToList());
+        }
+
+        private bool DatesAreInTheSameWeek(DateTime date1, DateTime date2)
+        {
+            var cal = System.Globalization.DateTimeFormatInfo.CurrentInfo.Calendar;
+
+            var d1 = date1.Date.AddDays(-1 * (int)cal.GetDayOfWeek(date1));
+
+            var d2 = date2.Date.AddDays(-1 * (int)cal.GetDayOfWeek(date2));
+
+            return d1 == d2;
         }
     }
 }

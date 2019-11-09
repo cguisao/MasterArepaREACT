@@ -3,12 +3,17 @@ import { NavDropdown } from 'react-bootstrap';
 
 function AdminListNav() {
     return (
-        <NavDropdown title="Inventory Control" variant="outline-dark">
-            <NavDropdown.Item href="/AddInventoryItem" >Add Inventory Item</NavDropdown.Item>
-            <NavDropdown.Item href="/InventoryList" >Inventory List</NavDropdown.Item>
-            <NavDropdown.Divider />
-            <NavDropdown.Item >Separated link</NavDropdown.Item>
-        </NavDropdown>
+        <React.Fragment>
+            <NavDropdown title="Inventory Control" variant="outline-dark">
+                 <NavDropdown.Item href="/AddInventoryItem" >Add Inventory Item</NavDropdown.Item>
+                 <NavDropdown.Divider />
+                 <NavDropdown.Item href="/InventoryList" >Inventory List</NavDropdown.Item>
+                 <NavDropdown.Item href="/HomeInventoryList" >Home Inventory List</NavDropdown.Item>
+             </NavDropdown>
+                 <NavDropdown title="Clover" variant="outline-dark">
+                 <NavDropdown.Divider />
+             </NavDropdown>
+        </React.Fragment>
     );
 }
 

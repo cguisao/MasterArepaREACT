@@ -98,7 +98,13 @@ namespace Master_Arepa.Controllers
             }
         }
 
-        private void SetNewHomeRecord(IFormCollection formValues)
+        [HttpGet("[action]")]
+        public ActionResult<HomeInventoryItem> GetHomeInventoryItem()
+        {
+            return Ok(_context.HomeInventoryItem.ToList().OrderByDescending(x => x.TimeStamp).Take(_context.InventoryItem.Count()));
+        }
+
+        public void SetNewHomeRecord(IFormCollection formValues)
         {
             foreach (var item in formValues)
             {
@@ -120,7 +126,7 @@ namespace Master_Arepa.Controllers
             _context.BulkInsert(insertItem);
         }
 
-        private void SetHomeQuantity(IFormCollection formValues, HomeInventoryItem lastRecordDate, int setter)
+        public void SetHomeQuantity(IFormCollection formValues, HomeInventoryItem lastRecordDate, int setter)
         {
             // Get the items from the same week and update those items
             var thisWeekItems = _context.HomeInventoryItem
@@ -157,7 +163,7 @@ namespace Master_Arepa.Controllers
             _context.BulkUpdate(insertItem);
         }
 
-        private void SetUserAndRole(IFormCollection formValues)
+        public void SetUserAndRole(IFormCollection formValues)
         {
             foreach (var item in formValues)
             {

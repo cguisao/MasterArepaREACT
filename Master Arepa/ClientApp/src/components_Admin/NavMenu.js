@@ -5,9 +5,9 @@ import { useAuth0 } from "../react-auth0-wrapper";
 
 function NavMenu() {
     const { logout, user } = useAuth0();
-    return (
+    return (        
         <Dropdown>
-            <Dropdown.Toggle variant="outline-dark"><img src={user.picture} alt="Profile" className="nav-user-profile rounded-circle" width="50" />
+            <Dropdown.Toggle variant="outline-warning"><img src={user.picture} alt="Profile" className="nav-user-profile rounded-circle" width="50" />
             </Dropdown.Toggle>
             <Dropdown.Menu>
                 <Dropdown.Item>{user.name}</Dropdown.Item>

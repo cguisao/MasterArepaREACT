@@ -7,16 +7,17 @@ import { Nav, Navbar, Container } from 'react-bootstrap';
 function UserNavbar() {
     return (
         <section className="section bg-about bg-light-about bg-light" id="dashboard">
-            <Navbar fixed="top" expand="lg" bg="dark" variant="dark" >
-                <Container>
+            <Navbar collapseOnSelect expand="lg" bg="warning" variant="light">
+                <Navbar.Brand href="/"><LogoNav /></Navbar.Brand>
+                <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                 <Navbar.Collapse id="responsive-navbar-nav">
-                    <LogoNav />
-                    <Nav>
+                    <Nav className="mr-auto">
                         <UserListNav />
                     </Nav>
+                    <Nav>
+                        <NavMenu />
+                    </Nav>
                 </Navbar.Collapse>
-                <NavMenu />
-                </Container>
             </Navbar>
         </section>
     );

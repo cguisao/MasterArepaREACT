@@ -3,7 +3,7 @@ import { Row, Col } from 'reactstrap';
 
 function NotAuthenticated() {
     return (<React.Fragment>
-        <section className="section bg-about bg-light-about bg-light" id="dashboard">
+        <section className="section bg-about bg-light-about bg-light" id="NotAuthenticated">
             <Row className="align-items-center p-4">
                 <Col md="6">
                     <div className="about-desc container">

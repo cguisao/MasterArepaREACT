@@ -36,47 +36,49 @@ const MainInventory = () => {
       
       if(isAuthenticated && (role == "Admin" || role == "User")){
         return (
-            <Container>
-                <div className="row">
-                  <Col lg="12">
-                      <div className="title-heading mb-5">
-                          <h2 className="text-dark mb-1 font-weight-light text-uppercase">Daily Food Truck Inventory</h2>
-                      </div>
-                  </Col>
-              </div>
-                <Row>
-                    <Col lg="12">
-                        <div className="contact-box p-5">
-                            <Row>
-                                <Col lg="12" md="12">
-                                    <Form onSubmit={handleSubmit}>
-                                        {Object.values(data).map(item =>
+            <section className="section bg-about bg-light-about bg-light" id="FoodTruckInventory">
+                <Container>
+                    <div className="row">
+                        <Col lg="12">
+                            <div className="title-heading mb-5">
+                                <h2 className="text-dark mb-1 font-weight-light text-uppercase">Daily Food Truck Inventory</h2>
+                            </div>
+                        </Col>
+                    </div>
+                    <Row>
+                        <Col lg="12">
+                            <div className="contact-box p-5">
+                                <Row>
+                                    <Col lg="12" md="12">
+                                        <Form onSubmit={handleSubmit}>
+                                            {Object.values(data).map(item =>
+                                                <FormGroup row>
+                                                    <Label htmlFor={item.item} sm={3}>{item.item}</Label>
+                                                    <Col sm={9}>
+                                                        <Input type="text" name={item.item} id={item.id} placeholder={item.item} />
+                                                    </Col>
+                                                </FormGroup>
+                                            )}
+                                            <br />
+                                            <FormGroup>
+                                                <Input type="hidden" value={user.name} name="User" />
+                                            </FormGroup>
+                                            <FormGroup>
+                                                <Input type="hidden" value={role} name="Role" />
+                                            </FormGroup>
                                             <FormGroup row>
-                                                <Label htmlFor={item.item} sm={3}>{item.item}</Label>
-                                                <Col sm={9}>
-                                                    <Input type="text" name={item.item} id={item.id} placeholder={item.item} />
+                                                <Col>
+                                                    <Button color="primary">Submit</Button>
                                                 </Col>
                                             </FormGroup>
-                                        )}
-                                        <br />
-                                        <FormGroup>
-                                            <Input type="hidden" value={user.name} name="User" />
-                                        </FormGroup>
-                                        <FormGroup>
-                                            <Input type="hidden" value={role} name="Role" />
-                                        </FormGroup>
-                                        <FormGroup row>
-                                            <Col>
-                                                <Button color="primary">Submit</Button>
-                                            </Col>
-                                        </FormGroup>
-                                    </Form>
-                                </Col>
-                            </Row>
-                        </div>
-                    </Col>
-                </Row>
-            </Container>
+                                        </Form>
+                                    </Col>
+                                </Row>
+                            </div>
+                        </Col>
+                    </Row>
+                </Container>
+            </section>
         );   
       }
       else{
