@@ -6,8 +6,8 @@ import { Nav, Navbar, Container } from 'react-bootstrap';
 
 function UserNavbar() {
     return (
-        <section className="section bg-about bg-light-about bg-light" id="dashboard">
-            <Navbar collapseOnSelect expand="lg" bg="warning" variant="light">
+        <Navbar collapseOnSelect expand="lg" bg="warning" variant="light">
+            <Container>
                 <Navbar.Brand href="/"><LogoNav /></Navbar.Brand>
                 <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                 <Navbar.Collapse id="responsive-navbar-nav">
@@ -18,8 +18,8 @@ function UserNavbar() {
                         <NavMenu />
                     </Nav>
                 </Navbar.Collapse>
-            </Navbar>
-        </section>
+            </Container>
+        </Navbar>
     );
 }
 
