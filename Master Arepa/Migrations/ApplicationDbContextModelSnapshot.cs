@@ -125,6 +125,19 @@ namespace Master_Arepa.Migrations
                     b.ToTable("InventoryItem");
                 });
 
+            modelBuilder.Entity("Master_Arepa.Models.InventoryViewModels.InventoryItemType", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Type");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("InventoryItemType");
+                });
+
             modelBuilder.Entity("Master_Arepa.Models.InventoryViewModels.InventoryTimeStamp", b =>
                 {
                     b.Property<int>("Id")

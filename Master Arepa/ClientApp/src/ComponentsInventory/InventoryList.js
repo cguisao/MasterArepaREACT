@@ -36,17 +36,17 @@ useEffect(() => {
     
     if(isAuthenticated && role == "Admin"){
     return (
-        <section className="section bg-about bg-light-about bg-light" id="FoodTruckInventory">
-            <Container>
+        
+            <React.Fragment>
                 <div className="row">
-                    <Col lg="12">
+                    <Col>
                         <div className="title-heading mb-5">
                             <h2 className="text-dark mb-1 font-weight-light text-uppercase">Inventory Item List</h2>
                         </div>
                     </Col>
                 </div>
                 <Row>
-                    <Col lg="12">
+                    <Col>
                         <div className="contact-box p-5">
                             <Row>
                                 <Col lg="8" md="6">
@@ -68,8 +68,7 @@ useEffect(() => {
                         </div>
                     </Col>
                 </Row>
-            </Container>
-        </section>
+            </React.Fragment>
     );   
     }
     else{

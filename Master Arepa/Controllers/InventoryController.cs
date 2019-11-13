@@ -104,6 +104,12 @@ namespace Master_Arepa.Controllers
             return Ok(_context.HomeInventoryItem.ToList().OrderByDescending(x => x.TimeStamp).Take(_context.InventoryItem.Count()));
         }
 
+        [HttpGet("[action]")]
+        public ActionResult<HomeInventoryItem> GetInventoryItemType()
+        {
+            return Ok(_context.InventoryItemType.ToList());
+        }
+
         public void SetNewHomeRecord(IFormCollection formValues)
         {
             foreach (var item in formValues)

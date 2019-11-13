@@ -41,7 +41,7 @@ const FoodTruckInventory = () => {
                     <div className="row">
                         <Col lg="12">
                             <div className="title-heading mb-5">
-                                <h2 className="text-dark mb-1 font-weight-light text-uppercase">Daily Food Truck Inventory</h2>
+                                <h2 className="text-dark mb-1 font-weight-light text-uppercase">Daily Inventory</h2>
                             </div>
                         </Col>
                     </div>

@@ -16,11 +16,15 @@ class ContactSection extends React.Component {
         fetch('api/Form/PageForm', {
             method: 'POST', 
             body: data,
-        }).then((result) => {
-            console.log(result.text);
-            alert("The message has been sent!");
+        }).then(function(response){
+            return response.json();
+        }).then(function(data){
+            alert(data.response);
+            console.log(data);
             window.location.reload();
-        }).catch(err => console.error(err))
+        }).catch(function(err) {
+            console.log(err);
+        })
     }
     render() {
 

@@ -22,6 +22,8 @@ namespace Master_Arepa.Data
 
         public DbSet<InventoryTimeStamp> InventoryTimeStamp { get; set; }
 
+        public DbSet<InventoryItemType> InventoryItemType { get; set; }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
