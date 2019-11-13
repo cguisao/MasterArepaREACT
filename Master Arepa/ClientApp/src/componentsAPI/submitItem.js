@@ -14,7 +14,7 @@ const handleSubmit = url => event => {
             // Show that Item is already in the database
             if(data.response == "Success"){
                 alert("Item added successfully!");
-                window.location.reload();
+                //window.location.reload();
             }
             // Show that the Item has successfully been added then reload the page
             else if(data.response == "Error")

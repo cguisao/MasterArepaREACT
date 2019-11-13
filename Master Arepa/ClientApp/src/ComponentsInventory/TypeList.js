@@ -4,18 +4,19 @@ import { useAuth0 } from "../react-auth0-wrapper";
 import NotAuthenticated from "../components_Admin/NotAuthenticated";
 import Preloader from "../components/Preloader";
 
-const InventoryList  = () => {
-    
-const [setErrors] = useState(false);
-const [data, setItems] = useState({});
+const TypeList  = () => {
 
-useEffect(() => {
-    async function fetchData() {
-        const res = await fetch("api/Admin/GetInventoryItem");
-        res
-        .json()
-        .then(res => setItems(res))
-        .catch(err => setErrors(err));
+    const [setErrors] = useState(false);
+    
+    const [data, setItems] = useState({});
+
+    useEffect(() => {
+        async function fetchData() {
+            const res = await fetch("api/Admin/GetInventoryType");
+                res
+                    .json()
+                        .then(res => setItems(res))
+                            .catch(err => setErrors(err));
     }
 
     fetchData();
@@ -28,19 +29,18 @@ useEffect(() => {
     }
     
     if(!isAuthenticated){
-    return <NotAuthenticated />;
+        return <NotAuthenticated />;
     }
 
     var role = user[Object.keys(user)[0]];
-    
+
     if(isAuthenticated && role == "Admin"){
-    return (
-        
+        return (
             <React.Fragment>
                 <div className="row">
                     <Col>
                         <div className="title-heading mb-5">
-                            <h2 className="text-dark mb-1 font-weight-light text-uppercase">Inventory Item List</h2>
+                            <h2 className="text-dark mb-1 font-weight-light text-uppercase">Inventory Type List</h2>
                         </div>
                     </Col>
                 </div>
@@ -52,13 +52,13 @@ useEffect(() => {
                                     <table className='table table-striped' aria-labelledby="tabelLabel">
                                         <thead>
                                             <tr>
-                                                <th>Item</th>
+                                                <th>Type</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             {Object.values(data).map(item =>
                                                 <tr key={item.id}>
-                                                    <td>{item.item}</td>
+                                                    <td>{item.type}</td>
                                                 </tr>)}
                                         </tbody>
                                     </table>
@@ -68,11 +68,11 @@ useEffect(() => {
                     </Col>
                 </Row>
             </React.Fragment>
-    );   
-    }
-    else{
-        return <NotAuthenticated />;
-    }
+        );   
+        }
+        else{
+            return <NotAuthenticated />;
+        }
 }
 
-export default InventoryList;
+export default TypeList;

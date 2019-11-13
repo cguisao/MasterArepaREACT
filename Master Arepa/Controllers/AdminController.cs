@@ -31,7 +31,6 @@ namespace Master_Arepa.Controllers
                 {
                     return Ok( new APIResponse { response = "Error", error = "Value already in the database!" });  
                 }
-
                 else
                 {
                     var lastRecordDate = _context.HomeInventoryItem
@@ -58,10 +57,40 @@ namespace Master_Arepa.Controllers
             }
         }
 
+        [HttpPost("[action]")]
+        public ActionResult<InventoryItemType> AddItemType([FromForm]InventoryItemType formValues)
+        {
+            try
+            {
+                var allInventory = _context.InventoryItemType.ToDictionary(x => x.Type);
+
+                if (allInventory.ContainsKey(formValues.Type))
+                {
+                    return Ok(new APIResponse { response = "Error", error = "Value already in the database!" });
+                }
+                else
+                {
+                    _context.InventoryItemType.Add(new InventoryItemType { Type = formValues.Type });
+                    _context.SaveChanges();
+                    return Ok(new APIResponse { response = "Success" });
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex);
+            }
+        }
+
         [HttpGet("[action]")]
         public ActionResult<InventoryItem> GetInventoryItem()
         {
             return Ok(_context.InventoryItem.ToList());
+        }
+
+        [HttpGet("[action]")]
+        public ActionResult<InventoryItem> GetInventoryType()
+        {
+            return Ok(_context.InventoryItemType.ToList());
         }
 
         private bool DatesAreInTheSameWeek(DateTime date1, DateTime date2)
