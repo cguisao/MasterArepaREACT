@@ -2,13 +2,13 @@ import React from "react";
 import handleSubmit from "../componentsAPI/submitItem";
 import { Row, Col, Form, Input, Label, Button } from 'reactstrap';
 
-function AddItem(){
+function AddOtherItem(){
     
     return (
         <React.Fragment>
             <Col>
                 <div className="title-heading mb-5">
-                    <h2 className="text-dark mb-1 font-weight-light text-uppercase">Add Inventory Item</h2>
+                    <h2 className="text-dark mb-1 font-weight-light text-uppercase">Add Additional Inventory Item</h2>
                 </div>
             </Col>
                 <Row>
@@ -21,7 +21,7 @@ function AddItem(){
                                         <Form onSubmit={handleSubmit("api/Admin/AddItem")}>
                                             <Col sx="3">
                                                 <Label htmlFor="item">Item</Label>
-                                                <Input type="text" name="Item" id="Item" required="true" placeholder="New Item" required/>
+                                                <Input type="text" name="Item" id="Item" required="true" placeholder="New Item" />
                                             </Col>
                                             <br />
                                             <Col>
@@ -38,4 +38,4 @@ function AddItem(){
         );
     }
     
-export default AddItem;
+export default AddOtherItem;

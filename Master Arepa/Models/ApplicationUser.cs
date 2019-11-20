@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Master_Arepa.Models
 {
-    public class ApplicationUser : IdentityUser
+    public class ApplicationUser
     {
     }
 }

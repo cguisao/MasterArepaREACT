@@ -7,6 +7,7 @@ function AdminListNav() {
             <NavDropdown title="Inventory Control" variant="outline-dark">
                  <NavDropdown.Item href="/AddInventoryItem" >Add Inventory Item</NavDropdown.Item>
                  <NavDropdown.Item href="/AddInventoryType" >Add Inventory Type</NavDropdown.Item>
+                 <NavDropdown.Item href="/AdminAdditionalInventory" >Add Additional Inventory Type</NavDropdown.Item>
                  <NavDropdown.Divider />
                  <NavDropdown.Item href="/HomeInventoryList" >Home Inventory List</NavDropdown.Item>
              </NavDropdown>

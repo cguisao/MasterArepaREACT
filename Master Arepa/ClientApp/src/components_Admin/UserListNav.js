@@ -6,13 +6,11 @@ function UserListNav() {
         <React.Fragment>
             <NavDropdown title="Inventory" variant="outline-dark">
                 <NavDropdown.Header >Cooking Inventory</NavDropdown.Header>
-                <NavDropdown.Item href="/MainInventory">Home Inventory</NavDropdown.Item>
+                <NavDropdown.Item href="/MainInventory">Weekly Inventory</NavDropdown.Item>
                 <NavDropdown.Divider />
-                <NavDropdown.Header >Food Truck Inventory</NavDropdown.Header>
+                <NavDropdown.Header >Daily Inventory</NavDropdown.Header>
                 <NavDropdown.Item href="/FoodTruckInventory">Daily Inventory</NavDropdown.Item>
                 <NavDropdown.Divider />
-                <NavDropdown.Header >Tent Inventory</NavDropdown.Header>
-                <NavDropdown.Item href="" >Daily Inventory</NavDropdown.Item>
             </NavDropdown>
         </React.Fragment>
     );

@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.IO;
 using System.Text;
 using System;
+using Master_Arepa.Helper;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -19,6 +20,8 @@ namespace Master_Arepa.Controllers
         {
             try
             {
+                EmailHelper helper = new EmailHelper();
+
                 string subject = formValues.subject;
 
                 string message = "";
@@ -40,8 +43,9 @@ namespace Master_Arepa.Controllers
 
                 message = message.Replace("emailBody", formValues.message);
 
-                sendEmail("smtp.gmail.com", 587, "cguisao@masterarepa.com", "lotero321"
-                , "cguisao@masterarepa.com", formValues.email, subject, message);
+                helper.sendEmail("smtp.gmail.com", 587, "cguisao@masterarepa.com", "lotero321"
+                , "cguisao@masterarepa.com", subject, message);
+
                 return Ok(new APIResponse { response = "Success" });
             }
             catch (Exception ex)
@@ -49,23 +53,5 @@ namespace Master_Arepa.Controllers
                 return BadRequest(ex);
             }
         }
-
-        public void sendEmail(string smtpClient, int port, string emailCredential, string passwordCredential,
-            string fromEmail, string email, string subject, string message)
-        {
-            SmtpClient client = new SmtpClient(smtpClient, port);
-            client.UseDefaultCredentials = true;
-            client.EnableSsl = true;
-            client.Credentials = new NetworkCredential(emailCredential, passwordCredential);
-
-            MailMessage mailMessage = new MailMessage();
-            mailMessage.From = new MailAddress(fromEmail);
-            mailMessage.To.Add(fromEmail);
-            mailMessage.IsBodyHtml = true;
-            mailMessage.Body = message;
-            mailMessage.Subject = subject;
-            client.Send(mailMessage);
-        }
-
     }
 }

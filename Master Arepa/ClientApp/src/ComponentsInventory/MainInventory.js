@@ -55,7 +55,7 @@ const MainInventory = () => {
                                                 <FormGroup row>
                                                     <Label htmlFor={item.item} sm={3}>{item.item}</Label>
                                                     <Col sm={9}>
-                                                        <Input type="text" name={item.item} id={item.id} placeholder={item.item} />
+                                                        <Input type="text" name={item.item} id={item.id} placeholder={item.item} required/>
                                                     </Col>
                                                 </FormGroup>
                                             )}

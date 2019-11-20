@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Master_Arepa.Data
 {
-    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
+    public class ApplicationDbContext : IdentityDbContext
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
@@ -23,6 +23,8 @@ namespace Master_Arepa.Data
         public DbSet<InventoryTimeStamp> InventoryTimeStamp { get; set; }
 
         public DbSet<InventoryItemType> InventoryItemType { get; set; }
+
+        public DbSet<InventoryOtherItem> InventoryOtherItem { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
