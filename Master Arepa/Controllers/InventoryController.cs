@@ -45,35 +45,25 @@ namespace Master_Arepa.Controllers
             {
                 SetUserAndRole(formValues);
 
-                var lastRecordDate = _context.HomeInventoryItem
-                    .OrderByDescending(x => x.TimeStamp).FirstOrDefault();
+                SetEmailValues(formValues);
 
-                if (lastRecordDate != null && DatesAreInTheSameWeek(lastRecordDate.TimeStamp, DateTime.Now))
-                {
-                    SetHomeQuantity(formValues, lastRecordDate, -1);
-                }
-                else
-                {
-                    SetNewHomeRecord(formValues, -1);
-                }
+                SendInventoryEmail("Daily Inventory on " + DateTime.Now.ToShortDateString());
 
                 _context.InventoryTimeStamp.Add(new InventoryTimeStamp
                 {
-                    InventoryType = type,
+                    InventoryType = InventoryType.Home.ToString(),
                     TimeStamp = DateTime.Now,
                     User = user
                 });
 
                 _context.SaveChanges();
 
-                SendInventoryEmail("Daily Inventory on " + DateTime.Now.ToShortDateString());
+                return Ok(new APIResponse { response = "Success" });
             }
             catch (Exception ex)
             {
                 return BadRequest(ex);
             }
-
-            return Ok(new APIResponse { response = "Success" });
         }
 
         private void SendInventoryEmail(string subject)
@@ -119,7 +109,7 @@ namespace Master_Arepa.Controllers
             message = message.Replace("InventoryItems", inventoryItemsMes);
 
             helper.sendEmail("smtp.gmail.com", 587, "cguisao@masterarepa.com", "lotero321"
-                , "gtisolutions49@gmail.com", subject, message);
+                , "cguisao@masterarepa.com", subject, message);
         }
 
         [HttpPost("[action]")]
@@ -150,6 +140,8 @@ namespace Master_Arepa.Controllers
 
                 _context.SaveChanges();
 
+                SetEmailValues(formValues);
+
                 SendInventoryEmail("Weekly Inventory on " + DateTime.Now.ToShortDateString());
 
                 return Ok(new APIResponse { response = "Success" });
@@ -179,15 +171,6 @@ namespace Master_Arepa.Controllers
                 int s = -9999;
                 if (Int32.TryParse(item.Value, out s))
                 {
-                    emailItem.Add(new HomeInventoryItem
-                    {
-                        Item = item.Key,
-                        Quantity = Int32.Parse(item.Value),
-                        Role = role,
-                        User = user,
-                        TimeStamp = DateTime.Now
-                    });
-
                     insertItem.Add(new HomeInventoryItem
                     {
                         Item = item.Key,
@@ -199,6 +182,25 @@ namespace Master_Arepa.Controllers
                 }
             }
             _context.BulkInsert(insertItem);
+        }
+
+        public void SetEmailValues(IFormCollection formValues)
+        {
+            foreach (var item in formValues)
+            {
+                int s = -9999;
+                if (Int32.TryParse(item.Value, out s))
+                {
+                    emailItem.Add(new HomeInventoryItem
+                    {
+                        Item = item.Key,
+                        Quantity = Int32.Parse(item.Value),
+                        Role = role,
+                        User = user,
+                        TimeStamp = DateTime.Now
+                    });
+                }
+            }
         }
 
         public void SetHomeQuantity(IFormCollection formValues, HomeInventoryItem lastRecordDate, int setter)
@@ -222,25 +224,15 @@ namespace Master_Arepa.Controllers
                             .Select(x => x.Quantity)
                                 .FirstOrDefault();
 
-                    emailItem.Add(new HomeInventoryItem
+                    insertItem.Add(new HomeInventoryItem
                     {
                         Id = currId,
                         Item = item.Key,
-                        Quantity = Int32.Parse(item.Value),
+                        Quantity = Int32.Parse(item.Value) * setter + currQuantity,
                         Role = role,
                         User = user,
                         TimeStamp = DateTime.Now
                     });
-
-                    //insertItem.Add(new HomeInventoryItem
-                    //{
-                    //    Id = currId,
-                    //    Item = item.Key,
-                    //    Quantity = Int32.Parse(item.Value) * setter + currQuantity,
-                    //    Role = role,
-                    //    User = user,
-                    //    TimeStamp = DateTime.Now
-                    //});
                 }
             }
             _context.BulkInsertOrUpdate(insertItem);
