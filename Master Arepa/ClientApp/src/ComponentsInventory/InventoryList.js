@@ -11,7 +11,7 @@ const [data, setItems] = useState({});
 
 useEffect(() => {
     async function fetchData() {
-        const res = await fetch("api/Admin/GetInventoryItem");
+        const res = await fetch("api/Admin/GetAdditionalInventoryItem");
         res
         .json()
         .then(res => setItems(res))
@@ -40,7 +40,7 @@ useEffect(() => {
                 <div className="row">
                     <Col>
                         <div className="title-heading mb-5">
-                            <h2 className="text-dark mb-1 font-weight-light text-uppercase">Inventory Item List</h2>
+                            <h2 className="text-dark mb-1 font-weight-light text-uppercase">Additional Inventory Item List</h2>
                         </div>
                     </Col>
                 </div>

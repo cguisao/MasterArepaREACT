@@ -18,7 +18,7 @@ function AddOtherItem(){
                                 <Col lg="8" md="6">
                                     <div className="custom-form p-3">
                                     <div id="message"></div>
-                                        <Form onSubmit={handleSubmit("api/Admin/AddItem")}>
+                                        <Form onSubmit={handleSubmit("api/Admin/AddAdditionalItemType")}>
                                             <Col sx="3">
                                                 <Label htmlFor="item">Item</Label>
                                                 <Input type="text" name="Item" id="Item" required="true" placeholder="New Item" />

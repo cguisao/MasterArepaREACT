@@ -81,10 +81,40 @@ namespace Master_Arepa.Controllers
             }
         }
 
+        [HttpPost("[action]")]
+        public ActionResult<InventoryOtherItem> AddAdditionalItemType([FromForm]InventoryOtherItem formValues)
+        {
+            try
+            {
+                var allInventory = _context.InventoryOtherItem.ToDictionary(x => x.Item);
+
+                if (allInventory.ContainsKey(formValues.Item))
+                {
+                    return Ok(new APIResponse { response = "Error", error = "Value already in the database!" });
+                }
+                else
+                {
+                    _context.InventoryOtherItem.Add(new InventoryOtherItem { Item = formValues.Item });
+                    _context.SaveChanges();
+                    return Ok(new APIResponse { response = "Success" });
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex);
+            }
+        }
+
         [HttpGet("[action]")]
         public ActionResult<InventoryItem> GetInventoryItem()
         {
             return Ok(_context.InventoryItem.ToList());
+        }
+
+        [HttpGet("[action]")]
+        public ActionResult<InventoryItem> GetAdditionalInventoryItem()
+        {
+            return Ok(_context.InventoryOtherItem.ToList());
         }
 
         [HttpGet("[action]")]
