@@ -11,13 +11,17 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import NotAuthenticated from "../components_Admin/NotAuthenticated";
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { useTheme } from '@material-ui/core/styles';
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import Checkbox from "@material-ui/core/Checkbox";
 import Preloader from "../components/Preloader";
+import handleSubmit from "../componentsAPI/submitItem";
 
 const FoodTruckInventory = () => {
     
-    const [setErrors, setErrorsType] = useState(false, false);
+    const [setErrors, setErrorsType, setErrorOtherType] = useState(false, false, false);
     const [data, setItems] = useState({});
     const [type, setTypes] = useState({});
+    const [otherType, setOtherTypes] = useState({});
     const [open, setOpen] = useState(false);
     const theme = useTheme();
     const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
@@ -45,8 +49,16 @@ const FoodTruckInventory = () => {
               .then(res => setItems(res))
               .catch(err => setErrors(err));
           }
+          async function fetchOtherTypes() {
+            const res = await fetch("api/Admin/GetAdditionalInventoryItem");
+            res
+              .json()
+              .then(res => setOtherTypes(res))
+              .catch(err => setErrorOtherType(err));
+          }
           fetchData();
           fetchTypes();
+          fetchOtherTypes();
     }, []);
         
       const { loading, isAuthenticated, user } = useAuth0();
@@ -78,7 +90,7 @@ const FoodTruckInventory = () => {
                                 <div className="contact-box p-5">
                                     <Row>
                                         <Col lg="12" md="12">
-                                            <Form onSubmit={handleSubmit}>
+                                            <Form onSubmit={handleSubmit("api/Inventory/AddFoodTruckInventory")}>
                                             <FormGroup row>
                                                 <Label for="select" sm={3}>Inventory Type</Label>
                                                 <Col sm={9}>
@@ -104,7 +116,7 @@ const FoodTruckInventory = () => {
                                                 <br />
                                                 <FormGroup row>
                                                     <Col>
-                                                        <Button type="submit" variant="contained" color="primary">Submit</Button>
+                                                        <Button type="submit" variant="contained" color="primary" onClick={handleClickOpen}>Submit</Button>
                                                     </Col>
                                                 </FormGroup>
                                             </Form>
@@ -114,27 +126,48 @@ const FoodTruckInventory = () => {
                             </Col>
                         </Row>
                     </Container>
-                    {/* <Dialog
+                    <div>
+                    <Dialog
                         fullScreen={fullScreen}
                         open={open}
                         onClose={handleClose}
-                        aria-labelledby="responsive-dialog-title">
-                        <DialogTitle id="responsive-dialog-title">{"Missing Items?"}</DialogTitle>
-                        <DialogContent>
-                            <DialogContentText>
-                                Let Google help apps determine location. This means sending anonymous location data to
-                                Google, even when no apps are running.
-                            </DialogContentText>
-                        </DialogContent>
-                        <DialogActions>
-                            <Button autoFocus onClick={handleClose} color="primary">
-                                Disagree
-                            </Button>
-                            <Button onClick={handleClose} color="primary" autoFocus>
-                                Agree
-                            </Button>
-                        </DialogActions>
-                    </Dialog> */}
+                        aria-labelledby="responsive-dialog-title"
+                    >
+                        <DialogTitle id="responsive-dialog-title">
+                        {"Missing Items?"}
+                        </DialogTitle>
+                        <Form onSubmit={handleSubmit("api/Inventory/AddOtherInventory")}>
+                            <DialogContent>
+                                <DialogContentText />
+                                <DialogContentText>
+                                    <FormGroup row>
+                                        <Label for="select" sm={3}>Inventory Type</Label>
+                                        <Col sm={9}>
+                                            <Input type="select" name="InventoryType" id="InventoryType">
+                                                {Object.values(type).map(typeItem => <option>{typeItem.type}</option>)}
+                                            </Input>
+                                        </Col>
+                                    </FormGroup>
+                                    {Object.values(otherType).map(item =>
+                                        <FormGroup check>
+                                            <Input type="checkbox" name={item.item} />{' '}  {item.item}
+                                        </FormGroup>
+                                    )}
+                                    <FormGroup>
+                                        <Input type="hidden" value={user.name} name="User" />
+                                    </FormGroup>
+                                    <FormGroup>
+                                        <Input type="hidden" value={role} name="Role" />
+                                    </FormGroup>
+                                </DialogContentText>
+                                <DialogActions>
+                                    <Button type="submit" onClick={handleClose} color="primary" autoFocus>Submit</Button>
+                                </DialogActions>
+                            </DialogContent>
+                        </Form>
+                    </Dialog>
+                    </div>
+                    
                 </section>
             </React.Fragment>
             );   
@@ -142,39 +175,6 @@ const FoodTruckInventory = () => {
       else{
         return <NotAuthenticated />;
       }
-}
-
-function handleSubmit(event) {
-
-    event.preventDefault();
-    const data = new FormData(event.target);
-    console.log(event.target);
-    fetch('api/Inventory/AddFoodTruckInventory', {
-        method: 'POST',
-        body: data
-    }).then(function(response){
-        return response.json();
-    }).then(function(data){
-        if(data.response != undefined){
-            // Show that nothing went wrong
-            // Show that Item is already in the database
-            if(data.response == "Success"){
-                alert("Food Truck Inventory Added Successfully!");
-                window.location.reload();
-            }
-            // Show that the Item has successfully been added then reload the page
-            else if(data.response == "Error")
-            {
-                alert(data.error);
-            }
-        }
-        else{
-            // Show that there is an error on the server
-            alert("Error on server info: \n" + "data.response" + data.ClassName + "\n" + "data.response" + data.response);
-        }
-    }).catch(function(err){
-        alert("Server completely down info: \n" + err);
-    })
 }
 
 export default FoodTruckInventory;

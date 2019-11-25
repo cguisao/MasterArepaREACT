@@ -6,6 +6,7 @@ using System.IO;
 using System.Text;
 using System;
 using Master_Arepa.Helper;
+using System.Collections.Generic;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -44,7 +45,7 @@ namespace Master_Arepa.Controllers
                 message = message.Replace("emailBody", formValues.message);
 
                 helper.sendEmail("smtp.gmail.com", 587, "cguisao@masterarepa.com", "lotero321"
-                , "cguisao@masterarepa.com", subject, message);
+                , new List<string>{ "cguisao@masterarepa.com" }, subject, message);
 
                 return Ok(new APIResponse { response = "Success" });
             }

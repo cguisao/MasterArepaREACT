@@ -29,6 +29,10 @@ namespace Master_Arepa.Controllers
 
         private List<HomeInventoryItem> emailItem { get; set; }
 
+        private List<InventoryOtherItem> emaiOtherlItem { get; set; }
+
+        private List<string> email { get; set; }
+
         public InventoryController(ApplicationDbContext context)
         {
             _context = context;
@@ -36,6 +40,48 @@ namespace Master_Arepa.Controllers
             insertItem = new List<HomeInventoryItem>();
 
             emailItem = new List<HomeInventoryItem>();
+
+            emaiOtherlItem = new List<InventoryOtherItem>();
+
+            email = new List<string>();
+        }
+
+        [HttpPost("[action]")]
+        public ActionResult<dynamic> AddOtherInventory([FromForm] IFormCollection formValues)
+        {
+            try
+            {
+                SetUserAndRole(formValues);
+                
+                // Set Other Inventory Email values
+                if (!emailItem.Any())
+                    SetOtherEmailValues(formValues);
+
+                string inventoryItemsMes = String.Empty;
+
+                foreach (var item in emaiOtherlItem)
+                {
+                    inventoryItemsMes = inventoryItemsMes + "<tr>" + "<td>"
+                        + item.Item + "</td>" + "<td>" + " Low " + "</td>" + "</tr>";
+                }
+
+                SendInventoryEmail("Daily Missing Items " + DateTime.Now.ToShortDateString(), inventoryItemsMes);
+
+                _context.InventoryTimeStamp.Add(new InventoryTimeStamp
+                {
+                    InventoryType = type,
+                    TimeStamp = DateTime.Now,
+                    User = user
+                });
+
+                _context.SaveChanges();
+
+                return Ok(new APIResponse { response = "SuccessNoMessage" });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex);
+            }
         }
 
         [HttpPost("[action]")]
@@ -44,10 +90,18 @@ namespace Master_Arepa.Controllers
             try
             {
                 SetUserAndRole(formValues);
-
+                // Set Home Inventory Email values
                 SetEmailValues(formValues);
 
-                SendInventoryEmail("Daily Inventory on " + DateTime.Now.ToShortDateString());
+                string inventoryItemsMes = String.Empty;
+
+                foreach (var item in emailItem)
+                {
+                    inventoryItemsMes = inventoryItemsMes + "<tr>" + "<td>"
+                        + item.Item + "</td>" + "<td>" + item.Quantity + "</td>" + "</tr>";
+                }
+
+                SendInventoryEmail("Daily Inventory on " + DateTime.Now.ToShortDateString(), inventoryItemsMes);
 
                 _context.InventoryTimeStamp.Add(new InventoryTimeStamp
                 {
@@ -58,7 +112,7 @@ namespace Master_Arepa.Controllers
 
                 _context.SaveChanges();
 
-                return Ok(new APIResponse { response = "Success" });
+                return Ok(new APIResponse { response = "SuccessNoMessage" });
             }
             catch (Exception ex)
             {
@@ -66,7 +120,7 @@ namespace Master_Arepa.Controllers
             }
         }
 
-        private void SendInventoryEmail(string subject)
+        private void SendInventoryEmail(string subject, string inventoryItemsMes)
         {
             EmailHelper helper = new EmailHelper();
 
@@ -98,18 +152,23 @@ namespace Master_Arepa.Controllers
 
             message = message.Replace("InventoryType", type);
 
-            string inventoryItemsMes = String.Empty;
-
-            foreach (var item in emailItem)
-            {
-                inventoryItemsMes = inventoryItemsMes + "<tr>" + "<td>"
-                    + item.Item + "</td>" + "<td>" + item.Quantity + "</td>" + "</tr>";
-            }
-
             message = message.Replace("InventoryItems", inventoryItemsMes);
 
+#if DEBUG
+            email.Add("cguisao@masterarepa.com");
+            helper.sendEmail("smtp.gmail.com", 587, "cguisao@masterarepa.com", "lotero321"
+                , email, subject, message);
+#else
+            email.Add("cguisao@masterarepa.com");
+            email.Add("bulltradeus@gmail.com");
+            email.Add("ruthpanqueva1@gmail.com");
+            email.Add("marceosorno0810@gmail.com");
+            email.Add("walterperez79@gmail.com");
             helper.sendEmail("smtp.gmail.com", 587, "cguisao@masterarepa.com", "lotero321"
                 , "cguisao@masterarepa.com", subject, message);
+#endif
+
+
         }
 
         [HttpPost("[action]")]
@@ -142,7 +201,15 @@ namespace Master_Arepa.Controllers
 
                 SetEmailValues(formValues);
 
-                SendInventoryEmail("Weekly Inventory on " + DateTime.Now.ToShortDateString());
+                string inventoryItemsMes = String.Empty;
+
+                foreach (var item in emailItem)
+                {
+                    inventoryItemsMes = inventoryItemsMes + "<tr>" + "<td>"
+                        + item.Item + "</td>" + "<td>" + item.Quantity + "</td>" + "</tr>";
+                }
+
+                SendInventoryEmail("Weekly Inventory on " + DateTime.Now.ToShortDateString(), inventoryItemsMes);
 
                 return Ok(new APIResponse { response = "Success" });
             }
@@ -198,6 +265,28 @@ namespace Master_Arepa.Controllers
                         Role = role,
                         User = user,
                         TimeStamp = DateTime.Now
+                    });
+                }
+            }
+        }
+
+        public void SetOtherEmailValues(IFormCollection formValues)
+        {
+            foreach (var item in formValues)
+            {
+                if (item.Key == "User")
+                    user = item.Value;
+                else if (item.Key == "InventoryType")
+                    type = item.Value;
+                else if (item.Key == "Role")
+                {
+                    role = item.Value;
+                }
+                else
+                {
+                    emaiOtherlItem.Add(new InventoryOtherItem
+                    {
+                        Item = item.Key
                     });
                 }
             }

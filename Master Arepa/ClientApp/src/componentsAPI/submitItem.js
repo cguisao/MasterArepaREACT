@@ -12,13 +12,14 @@ const handleSubmit = url => event => {
         if(data.response != undefined){
             // Show that nothing went wrong
             // Show that Item is already in the database
-            if(data.response == "Success"){
+            if(data.response == "SuccessNoMessage"){
+                console.log("Item added successfully!");
+            }
+            else if(data.response == "Success"){
                 alert("Item added successfully!");
-                //window.location.reload();
             }
             // Show that the Item has successfully been added then reload the page
-            else if(data.response == "Error")
-            {
+            else if(data.response == "Error"){
                 alert(data.error);
             }
         }
