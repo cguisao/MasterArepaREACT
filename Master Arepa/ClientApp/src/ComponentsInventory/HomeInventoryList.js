@@ -55,6 +55,7 @@ const HomeInventoryList  = () => {
                                                 <tr>
                                                     <th>Item</th>
                                                     <th>Quantity</th>
+                                                    <th>Date</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -62,6 +63,7 @@ const HomeInventoryList  = () => {
                                                     <tr key={item.id}>
                                                         <td>{item.item}</td>
                                                         <td>{item.quantity}</td>
+                                                        <td>{item.timeStamp.substring(0, 10)}</td>
                                                     </tr>)}
                                             </tbody>
                                         </table>

@@ -120,55 +120,61 @@ namespace Master_Arepa.Controllers
             }
         }
 
-        private void SendInventoryEmail(string subject, string inventoryItemsMes)
+        [HttpPost("[action]")]
+        public ActionResult<dynamic> IncreaseDailyInventory([FromForm] IFormCollection formValues)
         {
-            EmailHelper helper = new EmailHelper();
-
-            string message = "";
-
-            string path = String.Empty;
-
-            path = Path.Combine(Directory.GetCurrentDirectory(),
-                            "ClientApp", "build", "Templates", "InventoryEmail.html");
-
-#if DEBUG
-            path = Path.Combine(Directory.GetCurrentDirectory(),
-                            "ClientApp", "public", "Templates", "InventoryEmail.html");
-#endif
-            var fileStream = new FileStream(@path, FileMode.Open, FileAccess.Read);
-
-            string line;
-            using (var streamReader = new StreamReader(fileStream, Encoding.UTF8))
+            try
             {
-                while ((line = streamReader.ReadLine()) != null)
+                SetUserAndRole(formValues);
+
+                var lastRecordDate = _context.HomeInventoryItem
+                    .OrderByDescending(x => x.TimeStamp).FirstOrDefault();
+
+                if (lastRecordDate != null && DatesAreInTheSameWeek(lastRecordDate.TimeStamp, DateTime.Now))
                 {
-                    message = message + line;
+                    SetHomeQuantity(formValues, lastRecordDate, -1);
                 }
+                else
+                {
+                    SetNewHomeRecord(formValues, -1);
+                }
+
+                _context.InventoryTimeStamp.Add(new InventoryTimeStamp
+                {
+                    InventoryType = InventoryType.Home.ToString(),
+                    TimeStamp = DateTime.Now,
+                    User = user
+                });
+
+                _context.SaveChanges();
+
+                SetEmailValues(formValues);
+
+                string inventoryItemsMes = String.Empty;
+
+                foreach (var item in emailItem)
+                {
+                    inventoryItemsMes = inventoryItemsMes + "<tr>" + "<td>"
+                        + item.Item + "</td>" + "<td>" + item.Quantity + "</td>" + "</tr>";
+                }
+
+                SendInventoryEmail("Add Inventory in: " + type + " done by: " + user + " ", inventoryItemsMes);
+
+                _context.InventoryTimeStamp.Add(new InventoryTimeStamp
+                {
+                    InventoryType = InventoryType.Home.ToString(),
+                    TimeStamp = DateTime.Now,
+                    User = user
+                });
+
+                _context.SaveChanges();
+
+                return Ok(new APIResponse { response = "SuccessNoMessage" });
             }
-
-            message = message.Replace("InventoryDate", DateTime.Now.ToShortDateString());
-
-            message = message.Replace("InventoryUser", user);
-
-            message = message.Replace("InventoryType", type);
-
-            message = message.Replace("InventoryItems", inventoryItemsMes);
-
-#if DEBUG
-            email.Add("cguisao@masterarepa.com");
-            helper.sendEmail("smtp.gmail.com", 587, "cguisao@masterarepa.com", "lotero321"
-                , email, subject, message);
-#else
-            email.Add("cguisao@masterarepa.com");
-            email.Add("bulltradeus@gmail.com");
-            email.Add("ruthpanqueva1@gmail.com");
-            email.Add("marceosorno0810@gmail.com");
-            email.Add("walterperez79@gmail.com");
-            helper.sendEmail("smtp.gmail.com", 587, "cguisao@masterarepa.com", "lotero321"
-                , "cguisao@masterarepa.com", subject, message);
-#endif
-
-
+            catch (Exception ex)
+            {
+                return BadRequest(ex);
+            }
         }
 
         [HttpPost("[action]")]
@@ -222,13 +228,67 @@ namespace Master_Arepa.Controllers
         [HttpGet("[action]")]
         public ActionResult<HomeInventoryItem> GetHomeInventoryItem()
         {
-            return Ok(_context.HomeInventoryItem.ToList().OrderByDescending(x => x.TimeStamp).Take(_context.InventoryItem.Count()));
+            return Ok(_context.HomeInventoryItem
+                    .ToList()
+                        .OrderByDescending(x => x.TimeStamp)
+                            .Take(_context.InventoryItem.Count()));
         }
 
         [HttpGet("[action]")]
         public ActionResult<HomeInventoryItem> GetInventoryItemType()
         {
             return Ok(_context.InventoryItemType.ToList());
+        }
+
+        private void SendInventoryEmail(string subject, string inventoryItemsMes)
+        {
+            EmailHelper helper = new EmailHelper();
+
+            string message = "";
+
+            string path = String.Empty;
+
+            path = Path.Combine(Directory.GetCurrentDirectory(),
+                            "ClientApp", "build", "Templates", "InventoryEmail.html");
+
+#if DEBUG
+            path = Path.Combine(Directory.GetCurrentDirectory(),
+                            "ClientApp", "public", "Templates", "InventoryEmail.html");
+#endif
+            var fileStream = new FileStream(@path, FileMode.Open, FileAccess.Read);
+
+            string line;
+            using (var streamReader = new StreamReader(fileStream, Encoding.UTF8))
+            {
+                while ((line = streamReader.ReadLine()) != null)
+                {
+                    message = message + line;
+                }
+            }
+
+            message = message.Replace("InventoryDate", DateTime.Now.ToShortDateString());
+
+            message = message.Replace("InventoryUser", user);
+
+            message = message.Replace("InventoryType", type);
+
+            message = message.Replace("InventoryItems", inventoryItemsMes);
+
+#if DEBUG
+            email.Add("cguisao@masterarepa.com");
+            helper.sendEmail("smtp.gmail.com", 587, "cguisao@masterarepa.com", "lotero321"
+                , email, subject, message);
+#else
+            email.Add("cguisao@masterarepa.com");
+            email.Add("bulltradeus@gmail.com");
+            email.Add("ruthpanqueva1@gmail.com");
+            email.Add("marceosorno0810@gmail.com");
+            email.Add("walterperez79@gmail.com");
+            helper.sendEmail("smtp.gmail.com", 587, "cguisao@masterarepa.com", "lotero321"
+                , email, subject, message);
+#endif
+
+
         }
 
         public void SetNewHomeRecord(IFormCollection formValues, int setter)
@@ -251,7 +311,7 @@ namespace Master_Arepa.Controllers
             _context.BulkInsert(insertItem);
         }
 
-        public void SetEmailValues(IFormCollection formValues)
+        private void SetEmailValues(IFormCollection formValues)
         {
             foreach (var item in formValues)
             {
@@ -270,7 +330,7 @@ namespace Master_Arepa.Controllers
             }
         }
 
-        public void SetOtherEmailValues(IFormCollection formValues)
+        private void SetOtherEmailValues(IFormCollection formValues)
         {
             foreach (var item in formValues)
             {
@@ -292,7 +352,7 @@ namespace Master_Arepa.Controllers
             }
         }
 
-        public void SetHomeQuantity(IFormCollection formValues, HomeInventoryItem lastRecordDate, int setter)
+        private void SetHomeQuantity(IFormCollection formValues, HomeInventoryItem lastRecordDate, int setter)
         {
             // Get the items from the same week and update those items
             var thisWeekItems = _context.HomeInventoryItem
@@ -327,7 +387,7 @@ namespace Master_Arepa.Controllers
             _context.BulkInsertOrUpdate(insertItem);
         }
 
-        public void SetUserAndRole(IFormCollection formValues)
+        private void SetUserAndRole(IFormCollection formValues)
         {
             foreach (var item in formValues)
             {

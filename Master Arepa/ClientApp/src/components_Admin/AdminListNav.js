@@ -9,9 +9,10 @@ function AdminListNav() {
                  <NavDropdown.Item href="/AddInventoryType" >Add Inventory Type</NavDropdown.Item>
                  <NavDropdown.Item href="/AdminAdditionalInventory" >Add Additional Inventory Type</NavDropdown.Item>
                  <NavDropdown.Divider />
+                 <NavDropdown.Item href="/IncreaseInventory" >Increase Daily Inventory</NavDropdown.Item>
                  <NavDropdown.Item href="/HomeInventoryList" >Home Inventory List</NavDropdown.Item>
              </NavDropdown>
-                 <NavDropdown title="Clover" variant="outline-dark">
+             <NavDropdown title="Clover" variant="outline-dark">
                  <NavDropdown.Divider />
              </NavDropdown>
         </React.Fragment>

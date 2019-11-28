@@ -14,23 +14,14 @@ import { useTheme } from '@material-ui/core/styles';
 import Preloader from "../components/Preloader";
 import handleSubmit from "../componentsAPI/submitItem";
 
-const FoodTruckInventory = () => {
-    
-    const [setErrors, setErrorsType, setErrorOtherType] = useState(false, false, false);
+const IncreaseInventory = () => {
+
+    const [setErrors, setErrorsType] = useState(false, false, false);
     const [data, setItems] = useState({});
     const [type, setTypes] = useState({});
-    const [otherType, setOtherTypes] = useState({});
     const [open, setOpen] = useState(false);
     const theme = useTheme();
     const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
-
-    const handleClickOpen = () => {
-        setOpen(true);
-      };
-    
-    const handleClose = () => {
-        setOpen(false);
-    };
 
     useEffect(() => {
         async function fetchTypes(){
@@ -41,25 +32,26 @@ const FoodTruckInventory = () => {
             .catch(err => setErrorsType(err));
         }
         async function fetchData() {
-            const res = await fetch("api/Admin/GetInventoryItem");
+            const res = await fetch("api/Inventory/GetHomeInventoryItem");
             res
               .json()
               .then(res => setItems(res))
               .catch(err => setErrors(err));
           }
-          async function fetchOtherTypes() {
-            const res = await fetch("api/Admin/GetAdditionalInventoryItem");
-            res
-              .json()
-              .then(res => setOtherTypes(res))
-              .catch(err => setErrorOtherType(err));
-          }
           fetchData();
           fetchTypes();
-          fetchOtherTypes();
     }, []);
-        
-      const { loading, isAuthenticated, user } = useAuth0();
+
+    const handleClickOpen = () => {
+        setOpen(true);
+        window.location.reload();
+      };
+    
+    const handleClose = () => {
+        setOpen(false);
+    };
+
+    const { loading, isAuthenticated, user } = useAuth0();
 
       if (loading) {
           return <Preloader />;
@@ -74,12 +66,12 @@ const FoodTruckInventory = () => {
       if(isAuthenticated && (role == "Admin" || role == "User")){
         return (
             <React.Fragment>
-                <section className="section bg-about bg-light-about bg-light" id="FoodTruckInventory">
+                <section className="section bg-about bg-light-about bg-light" id="IncreaseDailyInventory">
                 <Container>
                     <div className="row">
                         <Col lg="12">
                             <div className="title-heading mb-5">
-                                <h2 className="text-dark mb-1 font-weight-light text-uppercase">Daily Inventory</h2>
+                                <h2 className="text-dark mb-1 font-weight-light text-uppercase">Increase Daily Inventory</h2>
                             </div>
                         </Col>
                     </div>
@@ -88,7 +80,7 @@ const FoodTruckInventory = () => {
                                 <div className="contact-box p-5">
                                     <Row>
                                         <Col lg="12" md="12">
-                                            <Form onSubmit={handleSubmit("api/Inventory/AddFoodTruckInventory")}>
+                                            <Form onSubmit={handleSubmit("api/Inventory/IncreaseDailyInventory")}>
                                             <FormGroup row>
                                                 <Label for="select" sm={3}>Inventory Type</Label>
                                                 <Col sm={9}>
@@ -101,7 +93,7 @@ const FoodTruckInventory = () => {
                                                     <FormGroup row>
                                                         <Label htmlFor={item.item} sm={3}>{item.item}</Label>
                                                         <Col sm={9}>
-                                                            <Input type="number" name={item.item} id={item.id} placeholder={item.item}/>
+                                                            <Input type="number" name={item.item} id={item.id} placeholder={"Currently in stock: " + item.quantity}/>
                                                         </Col>
                                                     </FormGroup>
                                                 )}
@@ -129,43 +121,21 @@ const FoodTruckInventory = () => {
                         fullScreen={fullScreen}
                         open={open}
                         onClose={handleClose}
-                        aria-labelledby="responsive-dialog-title"
-                    >
+                        aria-labelledby="responsive-dialog-title">
                         <DialogTitle id="responsive-dialog-title">
-                        {"Missing Items?"}
+                        {"Awesome!!"}
                         </DialogTitle>
-                        <Form onSubmit={handleSubmit("api/Inventory/AddOtherInventory")}>
-                            <DialogContent>
-                                <DialogContentText />
-                                <DialogContentText>
-                                    <FormGroup row>
-                                        <Label for="select" sm={3}>Inventory Type</Label>
-                                        <Col sm={9}>
-                                            <Input type="select" name="InventoryType" id="InventoryType">
-                                                {Object.values(type).map(typeItem => <option>{typeItem.type}</option>)}
-                                            </Input>
-                                        </Col>
-                                    </FormGroup>
-                                    {Object.values(otherType).map(item =>
-                                        <FormGroup check>
-                                            <Input type="checkbox" name={item.item} />{' '}  {item.item}
-                                        </FormGroup>
-                                    )}
-                                    <FormGroup>
-                                        <Input type="hidden" value={user.name} name="User" />
-                                    </FormGroup>
-                                    <FormGroup>
-                                        <Input type="hidden" value={role} name="Role" />
-                                    </FormGroup>
-                                </DialogContentText>
-                                <DialogActions>
-                                    <Button type="submit" onClick={handleClose} color="primary" autoFocus>Submit</Button>
-                                </DialogActions>
-                            </DialogContent>
-                        </Form>
+                        <DialogContent>
+                            <DialogContentText />
+                            <DialogContentText>
+                                <p>Daily Inventory Increased</p>
+                            </DialogContentText>
+                            <DialogActions>
+                                <Button onClick={handleClose} color="primary" autoFocus>Close</Button>
+                            </DialogActions>
+                        </DialogContent>
                     </Dialog>
                     </div>
-                    
                 </section>
             </React.Fragment>
             );   
@@ -175,4 +145,4 @@ const FoodTruckInventory = () => {
       }
 }
 
-export default FoodTruckInventory;
+export default IncreaseInventory;
