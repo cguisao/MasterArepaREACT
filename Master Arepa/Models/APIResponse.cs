@@ -9,6 +9,8 @@ namespace Master_Arepa.Models
     {
         public string response { get; set; }
 
+        public bool popup { get; set; }
+
         public string error { get; set; }
     }
 }

@@ -112,7 +112,7 @@ namespace Master_Arepa.Controllers
 
                 _context.SaveChanges();
 
-                return Ok(new APIResponse { response = "SuccessNoMessage" });
+                return Ok(new APIResponse { response = "Success", popup = false });
             }
             catch (Exception ex)
             {
@@ -169,7 +169,7 @@ namespace Master_Arepa.Controllers
 
                 _context.SaveChanges();
 
-                return Ok(new APIResponse { response = "SuccessNoMessage" });
+                return Ok(new APIResponse { response = "Success", popup = true });
             }
             catch (Exception ex)
             {
@@ -228,10 +228,12 @@ namespace Master_Arepa.Controllers
         [HttpGet("[action]")]
         public ActionResult<HomeInventoryItem> GetHomeInventoryItem()
         {
+            var cal = System.Globalization.DateTimeFormatInfo.CurrentInfo.Calendar;
+
             return Ok(_context.HomeInventoryItem
-                    .ToList()
-                        .OrderByDescending(x => x.TimeStamp)
-                            .Take(_context.InventoryItem.Count()));
+                .Where(x => x.TimeStamp.Date.
+                    AddDays(-1 * ((int)cal.GetDayOfWeek(x.TimeStamp))-1) == 
+                        DateTime.Today.Date.AddDays(-1 * ((int)cal.GetDayOfWeek(DateTime.Today))-1)));
         }
 
         [HttpGet("[action]")]
@@ -407,9 +409,9 @@ namespace Master_Arepa.Controllers
         {
             var cal = System.Globalization.DateTimeFormatInfo.CurrentInfo.Calendar;
             
-            var d1 = date1.Date.AddDays(-1 * (int)cal.GetDayOfWeek(date1));
+            var d1 = date1.Date.AddDays(-1 * ((int)cal.GetDayOfWeek(date1)-1));
             
-            var d2 = date2.Date.AddDays(-1 * (int)cal.GetDayOfWeek(date2));
+            var d2 = date2.Date.AddDays(-1 * ((int)cal.GetDayOfWeek(date2)-1));
 
             return d1 == d2;
         }
