@@ -11,3 +11,5 @@ node_modules/
 .vs/Master Arepa/DesignTimeBuild/
 Inventory/obj/
 Inventory/bin/
+Master Arepa/appsettings.json
+Master Arepa/token.json/Google.Apis.Auth.OAuth2.Responses.TokenResponse-user
