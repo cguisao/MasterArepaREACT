@@ -1,5 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { Row, Col } from 'reactstrap';
+import { makeStyles } from '@material-ui/core/styles';
+import Paper from '@material-ui/core/Paper';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableHead from '@material-ui/core/TableHead';
+import TablePagination from '@material-ui/core/TablePagination';
+import TableRow from '@material-ui/core/TableRow';
+import TableContainer from '@material-ui/core/TableContainer';
 import { useAuth0 } from "../react-auth0-wrapper";
 import NotAuthenticated from "../components_Admin/NotAuthenticated";
 import Preloader from "../components/Preloader";
@@ -7,8 +16,20 @@ import Preloader from "../components/Preloader";
 const TypeList  = () => {
 
     const [setErrors] = useState(false);
-    
     const [data, setItems] = useState({});
+    const [page, setPage] = React.useState(0);
+    const [rowsPerPage, setRowsPerPage] = React.useState(10);
+
+    const useStyles = makeStyles({
+        root: {
+          width: '100%',
+        },
+        container: {
+          maxHeight: 440,
+        },
+      });
+
+      const classes = useStyles();
 
     useEffect(() => {
         async function fetchData() {
@@ -21,6 +42,15 @@ const TypeList  = () => {
 
     fetchData();
     });
+
+    const handleChangePage = (event, newPage) => {
+        setPage(newPage);
+      };
+    
+      const handleChangeRowsPerPage = event => {
+        setRowsPerPage(+event.target.value);
+        setPage(0);
+      };
 
     const { loading, isAuthenticated, user } = useAuth0();
 
@@ -45,27 +75,34 @@ const TypeList  = () => {
                     </Col>
                 </div>
                 <Row>
-                    <Col>
-                        <div className="contact-box p-5">
-                            <Row>
-                                <Col lg="8" md="6">
-                                    <table className='table table-striped' aria-labelledby="tabelLabel">
-                                        <thead>
-                                            <tr>
-                                                <th>Type</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            {Object.values(data).map(item =>
-                                                <tr key={item.id}>
-                                                    <td>{item.type}</td>
-                                                </tr>)}
-                                        </tbody>
-                                    </table>
-                                </Col>
-                            </Row>
-                        </div>
-                    </Col>
+                <Paper>
+                    <TableContainer>
+                        <Table className={classes.table} aria-label="simple table">
+                            <TableHead>
+                                <TableRow>
+                                    <TableCell><b>Type</b></TableCell>
+                                </TableRow>
+                            </TableHead>
+                            <TableBody>
+                            {Object.values(data).slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map(item => (
+                                <TableRow key={item.id}>
+                                <TableCell component="th" scope="row">
+                                    {item.type}
+                                </TableCell>
+                                </TableRow>
+                            ))}
+                            </TableBody>
+                        </Table>
+                    </TableContainer>
+                    <TablePagination rowsPerPageOptions={[5, 10, 50]} 
+                        count={Object.values(data).length} 
+                        component="div"
+                        rowsPerPage={rowsPerPage}
+                        page={page}
+                        onChangePage={handleChangePage}
+                        onChangeRowsPerPage={handleChangeRowsPerPage}
+                        />
+                </Paper>
                 </Row>
             </React.Fragment>
         );   

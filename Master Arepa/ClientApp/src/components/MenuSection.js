@@ -27,42 +27,42 @@ class MenuSection extends React.Component{
                                             <div className="price-item">
                                                 <h4 className="price-item__heading">Master Arepa</h4>
                                                 <div className="price-item__separator"></div>
-                                                <div className="price-item__price">$9.99</div>
+                                                <div className="price-item__price"></div>
                                             </div>
                                         </li>
                                         <li className="price-list__item">
                                             <div className="price-item">
                                                 <h4 className="price-item__heading">Arepa Mix</h4>
                                                 <div className="price-item__separator"></div>
-                                                <div className="price-item__price">$8.49</div>
+                                                <div className="price-item__price"></div>
                                             </div>
                                         </li>
                                         <li className="price-list__item">
                                             <div className="price-item">
                                                 <h4 className="price-item__heading">Steak Arepa</h4>
                                                 <div className="price-item__separator"></div>
-                                                <div className="price-item__price">$8.99</div>
+                                                <div className="price-item__price"></div>
                                             </div>
                                         </li>
                                         <li className="price-list__item">
                                             <div className="price-item">
                                                 <h4 className="price-item__heading">Chicken Arepa</h4>
                                                 <div className="price-item__separator"></div>
-                                                <div className="price-item__price">$8.99</div>
+                                                <div className="price-item__price"></div>
                                             </div>
                                         </li>
                                         <li className="price-list__item">
                                             <div className="price-item">
                                                 <h4 className="price-item__heading">Hawaiian Arepa</h4>
                                                 <div className="price-item__separator"></div>
-                                                <div className="price-item__price">$8.99</div>
+                                                <div className="price-item__price"></div>
                                             </div>
                                         </li>
                                         <li className="price-list__item">
                                             <div className="price-item">
                                                 <h4 className="price-item__heading">Arepa Burger</h4>
                                                 <div className="price-item__separator"></div>
-                                                <div className="price-item__price">$9.99</div>
+                                                <div className="price-item__price"></div>
                                             </div>
                                         </li>
                                     </ul>
@@ -79,38 +79,44 @@ class MenuSection extends React.Component{
                                     <ul className="price-list">
                                         <li className="price-list__item">
                                             <div className="price-item">
-                                                <h4 className="price-item__heading">3 Grilled Tacos for</h4>
+                                                <h4 className="price-item__heading">Grilled Tacos Choices:</h4>
                                                 <div className="price-item__separator"></div>
-                                                <div className="price-item__price">$8.99</div>
+                                                <div className="price-item__price"></div>
                                             </div>
                                         </li>
                                         <li className="price-list__item">
                                             <div className="price-item">
                                                 <h4 className="price-item__heading">Steak</h4>
+                                                <div className="price-item__separator"></div>
+                                                <div className="price-item__price"></div>
                                             </div>
                                         </li>
                                         <li className="price-list__item">
                                             <div className="price-item">
                                                 <h4 className="price-item__heading">Chicken</h4>
+                                                <div className="price-item__separator"></div>
+                                                <div className="price-item__price"></div>
                                             </div>
                                         </li>
                                         <li className="price-list__item">
                                             <div className="price-item">
                                                 <h4 className="price-item__heading">Chorizo</h4>
+                                                <div className="price-item__separator"></div>
+                                                <div className="price-item__price"></div>
                                             </div>
                                         </li>
                                         <li className="price-list__item">
                                             <div className="price-item">
                                                 <h4 className="price-item__heading">Shrimp</h4>
                                                 <div className="price-item__separator"></div>
-                                                <div className="price-item__price">+ $0.99</div>
+                                                <div className="price-item__price"></div>
                                             </div>
                                         </li>
                                         <li className="price-list__item">
                                             <div className="price-item">
                                                 <h4 className="price-item__heading">Al Pastor</h4>
                                                 <div className="price-item__separator"></div>
-                                                <div className="price-item__price">+ $0.99</div>
+                                                <div className="price-item__price"></div>
                                             </div>
                                         </li>
                                     </ul>
@@ -128,42 +134,42 @@ class MenuSection extends React.Component{
                                             <div className="price-item">
                                                 <h4 className="price-item__heading">2 Tequeños</h4>
                                                 <div className="price-item__separator"></div>
-                                                <div className="price-item__price">$3.99</div>
+                                                <div className="price-item__price"></div>
                                             </div>
                                         </li>
                                         <li className="price-list__item">
                                             <div className="price-item">
                                                 <h4 className="price-item__heading">2 Empanadas (Steak - Chicken - Cheese)</h4>
                                                 <div className="price-item__separator"></div>
-                                                <div className="price-item__price">$3.99</div>
+                                                <div className="price-item__price"></div>
                                             </div>
                                         </li>
                                         <li className="price-list__item">
                                             <div className="price-item">
                                                 <h4 className="price-item__heading">Salchipapas</h4>
                                                 <div className="price-item__separator"></div>
-                                                <div className="price-item__price">$5.99</div>
+                                                <div className="price-item__price"></div>
                                             </div>
                                         </li>
                                         <li className="price-list__item">
                                             <div className="price-item">
                                                 <h4 className="price-item__heading">Chicken Wings</h4>
                                                 <div className="price-item__separator"></div>
-                                                <div className="price-item__price">$7.99</div>
+                                                <div className="price-item__price"></div>
                                             </div>
                                         </li>
                                         <li className="price-list__item">
                                             <div className="price-item">
                                                 <h4 className="price-item__heading">Burger</h4>
                                                 <div className="price-item__separator"></div>
-                                                <div className="price-item__price">$9.99</div>
+                                                <div className="price-item__price"></div>
                                             </div>
                                         </li>
                                         <li className="price-list__item">
                                             <div className="price-item">
                                                 <h4 className="price-item__heading">Quesadillas (Steak - Chicken - Both)</h4>
                                                 <div className="price-item__separator"></div>
-                                                <div className="price-item__price">$9.99</div>
+                                                <div className="price-item__price"></div>
                                             </div>
                                         </li>
                                     </ul>

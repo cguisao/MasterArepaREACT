@@ -16,6 +16,7 @@ import AddInventoryType from './ComponentsInventory/AddInventoryType';
 import AdminAdditionalInventory from './ComponentsInventory/AddAdditionalInventory';
 import IncreaseInventory from './ComponentsInventory/IncreaseInventory';
 import CookingInventory from './ComponentsInventory/CookingInventory';
+import SingleInventoryAdd from './ComponentsInventory/SingleInventoryAdd';
 const baseUrl = document.getElementsByTagName('base')[0].getAttribute('href');
 const rootElement = document.getElementById('root');
 
@@ -49,6 +50,7 @@ ReactDOM.render(
           <Route path="/AdminAdditionalInventory" component={AdminAdditionalInventory}/>
           <Route path="/IncreaseInventory" component={IncreaseInventory} />
           <Route path="/CookingInventory" component={CookingInventory} />
+          <Route path="/SingleInventoryAdd" component={SingleInventoryAdd} />
         </Switch>
         </BrowserRouter>
     </Auth0Provider>,

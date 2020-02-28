@@ -11,6 +11,12 @@ using Microsoft.EntityFrameworkCore;
 using System.IO;
 using System.Text;
 using Master_Arepa.Helper;
+using Google.Apis.Auth.OAuth2;
+using Google.Apis.Calendar.v3;
+using Google.Apis.Calendar.v3.Data;
+using Google.Apis.Services;
+using Google.Apis.Util.Store;
+using System.Threading;
 
 namespace Master_Arepa.Controllers
 {
@@ -19,11 +25,15 @@ namespace Master_Arepa.Controllers
     {
         public ApplicationDbContext _context;
 
-        private string user { get; set; }
+        private string User { get; set; }
 
-        private string role { get; set; }
+        private string Role { get; set; }
 
-        private string type { get; set; }
+        private string InventoryType { get; set; }
+
+        private string SingleInventory { get; set; }
+
+        private int SingleValue { get; set; }
 
         private List<HomeInventoryItem> insertItem { get; set; }
 
@@ -32,6 +42,10 @@ namespace Master_Arepa.Controllers
         private List<InventoryOtherItem> emaiOtherlItem { get; set; }
 
         private List<string> email { get; set; }
+
+        static string[] Scopes = { CalendarService.Scope.CalendarReadonly };
+
+        static string ApplicationName = "Master Arepa";
 
         public InventoryController(ApplicationDbContext context)
         {
@@ -69,9 +83,9 @@ namespace Master_Arepa.Controllers
 
                 _context.InventoryTimeStamp.Add(new InventoryTimeStamp
                 {
-                    InventoryType = type,
+                    InventoryType = InventoryType,
                     TimeStamp = DateTime.Now,
-                    User = user
+                    User = User
                 });
 
                 _context.SaveChanges();
@@ -105,14 +119,14 @@ namespace Master_Arepa.Controllers
 
                 _context.InventoryTimeStamp.Add(new InventoryTimeStamp
                 {
-                    InventoryType = InventoryType.Home.ToString(),
+                    InventoryType = Models.InventoryType.Home.ToString(),
                     TimeStamp = DateTime.Now,
-                    User = user
+                    User = User
                 });
 
                 _context.SaveChanges();
 
-                return Ok(new APIResponse { response = "Success", popup = false });
+                return Ok(new APIResponse { response = "Success", popup = true });
             }
             catch (Exception ex)
             {
@@ -141,9 +155,9 @@ namespace Master_Arepa.Controllers
 
                 _context.InventoryTimeStamp.Add(new InventoryTimeStamp
                 {
-                    InventoryType = InventoryType.Home.ToString(),
+                    InventoryType = Models.InventoryType.Home.ToString(),
                     TimeStamp = DateTime.Now,
-                    User = user
+                    User = User
                 });
 
                 _context.SaveChanges();
@@ -158,18 +172,18 @@ namespace Master_Arepa.Controllers
                         + item.Item + "</td>" + "<td>" + item.Quantity + "</td>" + "</tr>";
                 }
 
-                SendInventoryEmail("Add Inventory in: " + type + " done by: " + user + " ", inventoryItemsMes);
+                SendInventoryEmail("Add Inventory in: " + InventoryType + " done by: " + User + " ", inventoryItemsMes);
 
                 _context.InventoryTimeStamp.Add(new InventoryTimeStamp
                 {
-                    InventoryType = InventoryType.Home.ToString(),
+                    InventoryType = Models.InventoryType.Home.ToString(),
                     TimeStamp = DateTime.Now,
-                    User = user
+                    User = User
                 });
 
                 _context.SaveChanges();
 
-                return Ok(new APIResponse { response = "Success", popup = true });
+                return Ok(new APIResponse { response = "Success", popup = false });
             }
             catch (Exception ex)
             {
@@ -184,36 +198,15 @@ namespace Master_Arepa.Controllers
             {
                 SetUserAndRole(formValues);
 
-                var lastRecordDate = _context.HomeInventoryItem
-                    .OrderByDescending(x => x.TimeStamp).FirstOrDefault();
+                SetUserSingleValues(formValues);
 
-                if (lastRecordDate != null && DatesAreInTheSameWeek(lastRecordDate.TimeStamp, DateTime.Now))
-                {
-                    SetHomeQuantity(formValues, lastRecordDate, 1);
-                }
-                else
-                {
-                    SetNewHomeRecord(formValues, 1);
-                }
+                SetHomeVariables(formValues);
 
-                _context.InventoryTimeStamp.Add(new InventoryTimeStamp
-                {
-                    InventoryType = InventoryType.Home.ToString(),
-                    TimeStamp = DateTime.Now,
-                    User = user
-                });
-
-                _context.SaveChanges();
+                SetTimeStamp();
 
                 SetEmailValues(formValues);
 
-                string inventoryItemsMes = String.Empty;
-
-                foreach (var item in emailItem)
-                {
-                    inventoryItemsMes = inventoryItemsMes + "<tr>" + "<td>"
-                        + item.Item + "</td>" + "<td>" + item.Quantity + "</td>" + "</tr>";
-                }
+                string inventoryItemsMes = SetEmailMessage();
 
                 SendInventoryEmail("Weekly Inventory on " + DateTime.Now.ToShortDateString(), inventoryItemsMes);
 
@@ -225,15 +218,103 @@ namespace Master_Arepa.Controllers
             }
         }
 
+        private string SetEmailMessage()
+        {
+            string inventoryItemsMes = String.Empty;
+
+            foreach (var item in emailItem)
+            {
+                inventoryItemsMes = inventoryItemsMes + "<tr>" + "<td>"
+                    + item.Item + "</td>" + "<td>" + item.Quantity + "</td>" + "</tr>";
+            }
+
+            return inventoryItemsMes;
+        }
+
+        private void SetTimeStamp()
+        {
+            _context.InventoryTimeStamp.Add(new InventoryTimeStamp
+            {
+                InventoryType = Models.InventoryType.Home.ToString(),
+                TimeStamp = DateTime.Now,
+                User = User
+            });
+
+            _context.SaveChanges();
+        }
+
+        private void SetHomeVariables(IFormCollection formValues)
+        {
+            var lastRecordDate = _context.HomeInventoryItem
+                                .OrderByDescending(x => x.TimeStamp).FirstOrDefault();
+
+            if (lastRecordDate != null && DatesAreInTheSameWeek(lastRecordDate.TimeStamp, DateTime.Now))
+            {
+                SetHomeQuantity(formValues, lastRecordDate, 1);
+            }
+            else
+            {
+                SetNewHomeRecord(formValues, 1);
+            }
+        }
+
         [HttpGet("[action]")]
         public ActionResult<HomeInventoryItem> GetHomeInventoryItem()
         {
-            var cal = System.Globalization.DateTimeFormatInfo.CurrentInfo.Calendar;
+            //UserCredential credential;
 
-            return Ok(_context.HomeInventoryItem
-                .Where(x => x.TimeStamp.Date.
-                    AddDays(-1 * ((int)cal.GetDayOfWeek(x.TimeStamp))-1) == 
-                        DateTime.Today.Date.AddDays(-1 * ((int)cal.GetDayOfWeek(DateTime.Today))-1)));
+            //using (var stream =
+            //    new FileStream("credentials.json", FileMode.Open, FileAccess.Read))
+            //{
+            //    // The file token.json stores the user's access and refresh tokens, and is created
+            //    // automatically when the authorization flow completes for the first time.
+            //    string credPath = "token.json";
+            //    credential = GoogleWebAuthorizationBroker.AuthorizeAsync(
+            //        GoogleClientSecrets.Load(stream).Secrets,
+            //        Scopes,
+            //        "user",
+            //        CancellationToken.None,
+            //        new FileDataStore(credPath, true)).Result;
+            //    Console.WriteLine("Credential file saved to: " + credPath);
+            //}
+
+            //// Create Google Calendar API service.
+            //var service = new CalendarService(new BaseClientService.Initializer()
+            //{
+            //    HttpClientInitializer = credential,
+            //    ApplicationName = ApplicationName,
+            //});
+
+            //// Define parameters of request.
+            //EventsResource.ListRequest request = service.Events.List("primary");
+            //request.TimeMin = DateTime.Now;
+            //request.ShowDeleted = false;
+            //request.SingleEvents = true;
+            //request.MaxResults = 10;
+            //request.OrderBy = EventsResource.ListRequest.OrderByEnum.StartTime;
+
+            //// List events.
+            //Events events = request.Execute();
+            ////Console.WriteLine("Upcoming events:");
+            //if (events.Items != null && events.Items.Count > 0)
+            //{
+            //    foreach (var eventItem in events.Items)
+            //    {
+            //        string when = eventItem.Start.DateTime.ToString();
+            //        if (String.IsNullOrEmpty(when))
+            //        {
+            //            when = eventItem.Start.Date;
+            //        }
+            //        //Console.WriteLine("{0} ({1})", eventItem.Summary, when);
+            //    }
+            //}
+            //else
+            //{
+            //    //Console.WriteLine("No upcoming events found.");
+            //}
+
+            return Ok(_context.HomeInventoryItem.Where(x  => DatesAreInTheSameWeek(x.TimeStamp, DateTime.Today)));
+
         }
 
         [HttpGet("[action]")]
@@ -270,9 +351,9 @@ namespace Master_Arepa.Controllers
 
             message = message.Replace("InventoryDate", DateTime.Now.ToShortDateString());
 
-            message = message.Replace("InventoryUser", user);
+            message = message.Replace("InventoryUser", User);
 
-            message = message.Replace("InventoryType", type);
+            message = message.Replace("InventoryType", InventoryType);
 
             message = message.Replace("InventoryItems", inventoryItemsMes);
 
@@ -295,22 +376,38 @@ namespace Master_Arepa.Controllers
 
         public void SetNewHomeRecord(IFormCollection formValues, int setter)
         {
-            foreach (var item in formValues)
+            if (!String.IsNullOrEmpty(SingleInventory))
             {
-                int s = -9999;
-                if (Int32.TryParse(item.Value, out s))
+                insertItem.Add(new HomeInventoryItem
                 {
-                    insertItem.Add(new HomeInventoryItem
+                    Item = SingleInventory,
+                    Quantity = SingleValue,
+                    Role = Role,
+                    User = User,
+                    TimeStamp = DateTime.Now
+                });
+            }
+            else
+            {
+                foreach (var item in formValues)
+                {
+                    int s = -9999;
+                    if (Int32.TryParse(item.Value, out s))
                     {
-                        Item = item.Key,
-                        Quantity = Int32.Parse(item.Value) * setter,
-                        Role = role,
-                        User = user,
-                        TimeStamp = DateTime.Now
-                    });
+                        insertItem.Add(new HomeInventoryItem
+                        {
+                            Item = item.Key,
+                            Quantity = Int32.Parse(item.Value) * setter,
+                            Role = Role,
+                            User = User,
+                            TimeStamp = DateTime.Now
+                        });
+                    }
                 }
             }
+
             _context.BulkInsert(insertItem);
+
         }
 
         private void SetEmailValues(IFormCollection formValues)
@@ -324,8 +421,8 @@ namespace Master_Arepa.Controllers
                     {
                         Item = item.Key,
                         Quantity = Int32.Parse(item.Value),
-                        Role = role,
-                        User = user,
+                        Role = Role,
+                        User = User,
                         TimeStamp = DateTime.Now
                     });
                 }
@@ -337,12 +434,12 @@ namespace Master_Arepa.Controllers
             foreach (var item in formValues)
             {
                 if (item.Key == "User")
-                    user = item.Value;
+                    User = item.Value;
                 else if (item.Key == "InventoryType")
-                    type = item.Value;
+                    InventoryType = item.Value;
                 else if (item.Key == "Role")
                 {
-                    role = item.Value;
+                    Role = item.Value;
                 }
                 else
                 {
@@ -360,32 +457,58 @@ namespace Master_Arepa.Controllers
             var thisWeekItems = _context.HomeInventoryItem
                 .Where(x => x.TimeStamp.ToShortDateString() == lastRecordDate.TimeStamp.ToShortDateString())
                     .AsNoTracking().ToList();
-            foreach (var item in formValues)
+
+            if(!String.IsNullOrEmpty(SingleInventory))
             {
-                int s = -9999;
-                if (Int32.TryParse(item.Value, out s))
+                int currId = thisWeekItems
+                            .Where(y => y.Item.Equals(SingleInventory))
+                                .Select(x => x.Id)
+                                    .FirstOrDefault();
+
+                int currQuantity = thisWeekItems
+                    .Where(y => y.Item.Equals(SingleInventory))
+                        .Select(x => x.Quantity)
+                            .FirstOrDefault();
+                insertItem.Add(new HomeInventoryItem
                 {
-                    int currId = thisWeekItems
-                        .Where(y => y.Item.Equals(item.Key))
-                            .Select(x => x.Id)
-                                .FirstOrDefault();
-
-                    int currQuantity = thisWeekItems
-                        .Where(y => y.Item.Equals(item.Key))
-                            .Select(x => x.Quantity)
-                                .FirstOrDefault();
-
-                    insertItem.Add(new HomeInventoryItem
+                    Id = currId,
+                    Item = SingleInventory,
+                    Quantity = SingleValue * setter + currQuantity,
+                    Role = Role,
+                    User = User,
+                    TimeStamp = DateTime.Now
+                });
+            }
+            else
+            {
+                foreach (var item in formValues)
+                {
+                    int s = -9999;
+                    if (Int32.TryParse(item.Value, out s))
                     {
-                        Id = currId,
-                        Item = item.Key,
-                        Quantity = Int32.Parse(item.Value) * setter + currQuantity,
-                        Role = role,
-                        User = user,
-                        TimeStamp = DateTime.Now
-                    });
+                        int currId = thisWeekItems
+                            .Where(y => y.Item.Equals(item.Key))
+                                .Select(x => x.Id)
+                                    .FirstOrDefault();
+
+                        int currQuantity = thisWeekItems
+                            .Where(y => y.Item.Equals(item.Key))
+                                .Select(x => x.Quantity)
+                                    .FirstOrDefault();
+
+                        insertItem.Add(new HomeInventoryItem
+                        {
+                            Id = currId,
+                            Item = item.Key,
+                            Quantity = Int32.Parse(item.Value) * setter + currQuantity,
+                            Role = Role,
+                            User = User,
+                            TimeStamp = DateTime.Now
+                        });
+                    }
                 }
             }
+            
             _context.BulkInsertOrUpdate(insertItem);
         }
 
@@ -393,13 +516,33 @@ namespace Master_Arepa.Controllers
         {
             foreach (var item in formValues)
             {
-                if (item.Key == "User")
-                    user = item.Value;
-                else if (item.Key == "InventoryType")
-                    type = item.Value;
-                else if (item.Key == "Role")
+                if (item.Key == nameof(User))
                 {
-                    role = item.Value;
+                    User = item.Value;
+                }
+                else if (item.Key == nameof(InventoryType))
+                {
+                    InventoryType = item.Value;
+                }
+                else if (item.Key == nameof(Role))
+                {
+                    Role = item.Value;
+                    break;
+                }
+            }
+        }
+
+        private void SetUserSingleValues(IFormCollection formValues)
+        {
+            foreach (var item in formValues)
+            {
+                if (item.Key == nameof(SingleInventory))
+                    SingleInventory = item.Value;
+                else if (item.Key == nameof(SingleValue))
+                {
+                    int val = 99;
+                    int.TryParse(item.Value.ToString(), out val);
+                    SingleValue = val;
                     break;
                 }
             }
@@ -408,12 +551,21 @@ namespace Master_Arepa.Controllers
         private bool DatesAreInTheSameWeek(DateTime date1, DateTime date2)
         {
             var cal = System.Globalization.DateTimeFormatInfo.CurrentInfo.Calendar;
-            
-            var d1 = date1.Date.AddDays(-1 * ((int)cal.GetDayOfWeek(date1)-1));
-            
-            var d2 = date2.Date.AddDays(-1 * ((int)cal.GetDayOfWeek(date2)-1));
 
-            return d1 == d2;
+            // If it is Sunday we need different logic
+
+            if (date2.DayOfWeek == DayOfWeek.Sunday)
+            {
+                var d3 = date1.Date.AddDays(-1 * ((int)cal.GetDayOfWeek(date1.AddDays(-1)) - 1));
+                var d4 = date2.Date.AddDays(-1 * ((int)cal.GetDayOfWeek(date2.AddDays(-1)) - 1));
+                return d3 == d4;
+            }
+            else
+            {
+                var d1 = date1.Date.AddDays(-1 * ((int)cal.GetDayOfWeek(date1) - 1));
+                var d2 = date2.Date.AddDays(-1 * ((int)cal.GetDayOfWeek(date2) - 1));
+                return d1 == d2;
+            }
         }
     }
 }

@@ -6,7 +6,8 @@ function UserListNav() {
         <React.Fragment>
             <NavDropdown title="Inventory" variant="outline-dark">
                 <NavDropdown.Header >Home Inventory</NavDropdown.Header>
-                <NavDropdown.Item href="/MainInventory">Home Inventory</NavDropdown.Item>
+                <NavDropdown.Item href="/SingleInventoryAdd">Home Single Inventory</NavDropdown.Item>
+                <NavDropdown.Item href="/MainInventory">Home Bulk Inventory</NavDropdown.Item>
                 <NavDropdown.Divider />
                 <NavDropdown.Header >Daily Inventory</NavDropdown.Header>
                 <NavDropdown.Item href="/FoodTruckInventory">Daily Inventory</NavDropdown.Item>
